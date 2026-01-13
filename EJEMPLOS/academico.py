@@ -39,3 +39,4 @@ print("\nResumen:")
 print(f"- Cantidad de aprobados: {cantidad_aprobados}")
 print(f"- Promedio de notas: {promedio_notas:.2f}")
 print(f"- Estudiantes que necesitan rendir: {necesitan_rendir}")
+
