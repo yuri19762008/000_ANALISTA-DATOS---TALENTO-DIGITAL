@@ -138,7 +138,7 @@ def eliminar_contacto(gestor: ContactManager):
 
 def main():
     """Función principal de la aplicación"""
-    gestor = ContactManager("contactos.json")
+    gestor = ContactManager(r"D:/000_ANALISTA DATOS , TALENTO DIGITAL/001_A2/PROYECTO/contactos.json")
 
     while True:
         mostrar_menu()
