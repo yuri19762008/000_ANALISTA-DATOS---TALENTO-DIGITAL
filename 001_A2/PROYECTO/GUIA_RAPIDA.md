@@ -5,7 +5,7 @@
 ### Paso 1: Descargar el Proyecto
 ```bash
 # Si está en GitHub
-git clone https://github.com/tu-usuario/Sistema-Gestion-Contactos.git
+git clone https://github.com/yuri19762008/000_ANALISTA-DATOS---TALENTO-DIGITAL/tree/master/001_A2/PROYECTO
 cd Sistema-Gestion-Contactos
 ```
 
@@ -61,9 +61,6 @@ Sistema-Gestion-Contactos/
 │
 ├── 📄 GUIA_RAPIDA.md
 │   └─ Este archivo
-│
-├── 📄 requirements.txt
-│   └─ Dependencias (ninguna para este proyecto)
 │
 └── 📄 contactos.json
     └─ Base de datos (se genera automáticamente)
@@ -285,7 +282,7 @@ python --version
 ## 📞 Contacto y Soporte
 
 Para problemas o preguntas:
-1. Revisa la documentación (README.md)
+1. Revisa la documentación (README.md o GUIA_RAPIDA.md)
 2. Ejecuta las pruebas para validar instalación
 3. Consulta ejemplos_uso.py para casos de uso
 
@@ -322,6 +319,6 @@ Ahora puedes:
 
 ---
 
-**Creado con ❤️ para el Módulo 2 de Evaluación**
+**Creado Yuri Urzua Lebuy para el Módulo 2 de Evaluación**
 
-*Última actualización: [Fecha]*
+*Última actualización: [13/01/2026]*

@@ -1,4 +1,6 @@
-"""requirements.txt - Dependencias del proyecto"""
+"""Dependencias del proyecto"""
+
+# - Visitar GUIA_RAPIDA.md para uso y cambio de ruta de creacion de archivo "contactos.json"
 
 # Este proyecto no requiere dependencias externas
 # Utiliza solo las librerías estándar de Python 3.7+
