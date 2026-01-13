@@ -11,9 +11,10 @@
 git init
 git add .
 git commit -m "Inicial: Sistema de Gestión de Contactos"
-git branch -M main
-git remote add origin https://github.com/tu-usuario/Sistema-Gestion-Contactos.git
-git push -u origin main
+git branch -M master
+git remote add origin https://github.com/yuri19762008/000_ANALISTA-DATOS---TALENTO-DIGITAL/tree/6382d7572f006598dee2f7236edd2e7cb5843c41/001_A2/PROYECTO
+
+git push -u origin master
 
 # Opción B: Si ya tienes repositorio
 git add .
@@ -99,8 +100,6 @@ build/
 ✅ INFORME_PRUEBAS.md         # Reporte de pruebas
 ✅ GUIA_RAPIDA.md             # Guía de inicio rápido
 ✅ ejemplos_uso.py            # Ejemplos de código
-✅ requirements.txt           # Dependencias
-✅ .gitignore                 # Archivos a ignorar
 ```
 
 ### Archivos Opcionales
@@ -205,7 +204,7 @@ git commit -m "perf: Optimizar búsquedas"
 
 1. **Enlace del Repositorio GitHub**
    ```
-   https://github.com/tu-usuario/Sistema-Gestion-Contactos
+   https://github.com/yuri19762008/000_ANALISTA-DATOS---TALENTO-DIGITAL/tree/6382d7572f006598dee2f7236edd2e7cb5843c41/001_A2/PROYECTO
    ```
 
 2. **Resumen del Proyecto** (200-300 palabras)
@@ -296,7 +295,7 @@ Tecnologías: Python 3.7+, unittest, JSON
 
 **URL:**
 ```
-https://github.com/tu-usuario/Sistema-Gestion-Contactos
+https://github.com/yuri19762008/000_ANALISTA-DATOS---TALENTO-DIGITAL/tree/6382d7572f006598dee2f7236edd2e7cb5843c41/001_A2/PROYECTO
 ```
 
 ---
