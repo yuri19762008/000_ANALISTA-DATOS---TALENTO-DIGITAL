@@ -1,6 +1,6 @@
 import numpy as np
 
-# 1. Carga y estructuración de datos -----------------------------
+# 1. Carga y estructuración de datos -------------
 
 # Simulamos precios de 5 acciones (filas) durante 5 días (columnas)
 # Puedes ajustar los valores según necesites
