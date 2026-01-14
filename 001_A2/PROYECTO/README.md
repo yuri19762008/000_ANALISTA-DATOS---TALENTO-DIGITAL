@@ -10,14 +10,6 @@ Aplicación de consola que permite **registrar, buscar, editar y eliminar contac
 - [Características](#-características)
 - [Tecnologías](#-tecnologías)
 - [Estructura del proyecto](#-estructura-del-proyecto)
-- [Instalación y ejecución](#-instalación-y-ejecución)
-- [Uso básico](#-uso-básico)
-- [Pruebas](#-pruebas)
-- [Arquitectura y diseño](#-arquitectura-y-diseño)
-- [Aprendizajes y desafíos](#-aprendizajes-y-desafíos)
-- [Mejoras futuras](#-mejoras-futuras)
-- [Autor](#-autor)
-- [Licencia](#-licencia)
 
 ---
 
