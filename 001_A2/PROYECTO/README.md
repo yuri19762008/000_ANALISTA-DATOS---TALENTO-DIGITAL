@@ -67,7 +67,6 @@ Sistema-Gestion-Contactos/
 ├── test_contact_system.py  # Pruebas unitarias (Contact y ContactManager)
 │
 ├── README.md               # Este documento
-├── requirements.txt        # Dependencias (solo estándar)
 │
 ├── INFORME_PRUEBAS.md      # Informe detallado de pruebas (opcional)
 ├── GUIA_RAPIDA.md          # Guía rápida de uso (opcional)
