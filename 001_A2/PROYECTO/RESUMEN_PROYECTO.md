@@ -355,11 +355,11 @@ python test_contact_system.py
 
 ## 🎯 Listo para
 
-✅ Ejecutar inmediatamente
-✅ Presentar a evaluadores
-✅ Compartir en GitHub
-✅ Incluir en portafolio
-✅ Usar como referencia
+- ✅ Ejecutar inmediatamente
+- ✅ Presentar a evaluadores
+- ✅ Compartir en GitHub
+- ✅ Incluir en portafolio
+- ✅ Usar como referencia
 
 ---
 
