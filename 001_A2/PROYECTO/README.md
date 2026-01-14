@@ -16,7 +16,7 @@ Aplicación de consola que permite **registrar, buscar, editar y eliminar contac
 ## 📋 Descripción
 
 Este proyecto implementa un **Sistema de Gestión de Contactos** en Python que funciona como una agenda de clientes en la línea de comandos.  
-Permite almacenar información personal (nombre, teléfono, correo y dirección) de forma organizada, segura y persistente mediante archivos JSON, aplicando buenas prácticas de código y pruebas unitarias.[web:44][web:50]
+Permite almacenar información personal (nombre, teléfono, correo y dirección) de forma organizada, segura y persistente mediante archivos JSON, aplicando buenas prácticas de código y pruebas unitarias.
 
 El sistema fue desarrollado como parte de una evaluación de módulo, pensado para ser incluido en un portafolio técnico.
 
@@ -32,7 +32,7 @@ El sistema fue desarrollado como parte de una evaluación de módulo, pensado pa
 - **Eliminación de contactos**: borrado seguro con confirmación.
 - **Persistencia en JSON**: los contactos se guardan y cargan automáticamente.
 - **Interfaz de consola**: menú simple e intuitivo.
-- **Pruebas unitarias**: cobertura de las funcionalidades principales con `unittest`.[web:28][web:35]
+- **Pruebas unitarias**: cobertura de las funcionalidades principales con `unittest`.
 
 ---
 
@@ -42,7 +42,7 @@ El sistema fue desarrollado como parte de una evaluación de módulo, pensado pa
 - **Librerías estándar**:
   - `json` para persistencia de datos.
   - `os` para manejo de archivos.
-  - `unittest` para pruebas unitarias.[web:28][web:39]
+  - `unittest` para pruebas unitarias.
 
 No se utilizan dependencias externas, lo que facilita la ejecución en cualquier entorno con Python 3 instalado.
 
