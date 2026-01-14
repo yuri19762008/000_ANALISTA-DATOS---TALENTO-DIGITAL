@@ -42,14 +42,14 @@ Se ha creado un **Sistema Profesional de Gestión de Contactos** que cumple 100%
 ### 2. **Documentación** (5 archivos)
 
 #### `README.md` - Documentación Principal
--✅ Descripción del proyecto
--✅ Características principales
--✅ Requisitos e instalación
--✅ Guía de usuario
--✅ Arquitectura y diseño
--✅ Buenas prácticas
--✅ Mejoras futuras
--**~400 líneas**
+   -✅ Descripción del proyecto
+   -✅ Características principales
+   -✅ Requisitos e instalación
+   -✅ Guía de usuario
+   -✅ Arquitectura y diseño
+   -✅ Buenas prácticas
+   -✅ Mejoras futuras
+   -**~400 líneas**
 
 #### `GUIA_RAPIDA.md` - Inicio Rápido
 ✅ 3 pasos para empezar
