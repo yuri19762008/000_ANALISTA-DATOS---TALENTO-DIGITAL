@@ -1,3 +1,8 @@
+![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
+![Status](https://img.shields.io/badge/Status-Complete-green)
+![Tests](https://img.shields.io/badge/Tests-22%2F22-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
 # Informe de Pruebas - Sistema de Gestión de Contactos
 
 ## 📋 Información General
