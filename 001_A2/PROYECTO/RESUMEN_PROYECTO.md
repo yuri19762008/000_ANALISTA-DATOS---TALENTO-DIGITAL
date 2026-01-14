@@ -225,23 +225,23 @@ Archivos a ignorar en Git
 ## 🎯 Aspectos de Calidad
 
 ### Técnicos
-✅ Código legible y bien estructurado
-✅ Nombres descriptivos de variables
-✅ Comentarios y docstrings completos
-✅ Manejo robusto de excepciones
-✅ Validación de datos en todos los niveles
+- ✅ Código legible y bien estructurado
+- ✅ Nombres descriptivos de variables
+- ✅ Comentarios y docstrings completos
+- ✅ Manejo robusto de excepciones
+- ✅ Validación de datos en todos los niveles
 
 ### Estructurales
-✅ Cumplimiento 100% de requerimientos
-✅ Arquitectura escalable
-✅ Separación clara de componentes
-✅ Código modular y reutilizable
+- ✅ Cumplimiento 100% de requerimientos
+- ✅ Arquitectura escalable
+- ✅ Separación clara de componentes
+- ✅ Código modular y reutilizable
 
 ### Performance
-✅ Búsquedas eficientes O(n)
-✅ Persistencia rápida en JSON
-✅ Memoria optimizada
-✅ Interfaz responsiva
+- ✅ Búsquedas eficientes O(n)
+- ✅ Persistencia rápida en JSON
+- ✅ Memoria optimizada
+- ✅ Interfaz responsiva
 
 ---
 
