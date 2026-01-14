@@ -1,3 +1,8 @@
+![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
+![Status](https://img.shields.io/badge/Status-Complete-green)
+![Tests](https://img.shields.io/badge/Tests-22%2F22-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
 # Sistema de Gestión de Contactos en Python
 
 Aplicación de consola que permite **registrar, buscar, editar y eliminar contactos**, utilizando **programación orientada a objetos**, estructuras de datos en Python y **persistencia en JSON**.
@@ -66,7 +71,7 @@ Sistema-Gestion-Contactos/
 └── contactos.json          # Archivo JSON con contactos (se genera al usar el sistema)
 
 
-(https://img.shields.io/badge/Python-3.7%2B-blue)
+![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
 ![Status](https://img.shields.io/badge/Status-Complete-green)
 ![Tests](https://img.shields.io/badge/Tests-22%2F22-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
