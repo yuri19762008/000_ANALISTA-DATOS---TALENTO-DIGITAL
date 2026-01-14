@@ -64,3 +64,9 @@ Sistema-Gestion-Contactos/
 ├── GUIA_RAPIDA.md          # Guía rápida de uso (opcional)
 ├── ENTREGA_PORTAFOLIO.md   # Guía de entrega/portafolio (opcional)
 └── contactos.json          # Archivo JSON con contactos (se genera al usar el sistema)
+
+
+[Python](https://img.shields.io/badge/Python-3.7%2B-blue)
+[Status](https://img.shields.io/badge/Status-Complete-green)
+[Tests](https://img.shields.io/badge/Tests-22%2F22-brightgreen)
+[License](https://img.shields.io/badge/License-MIT-yellow)
