@@ -1,0 +1,11 @@
+ID,Nombre,Edad,Ciudad,Total_Compras,Monto_Total
+1,Ana,25.0,Buenos Aires,5,2500
+2,Luis,34.0,Córdoba,2,1200
+3,Carlos,45.0,Rosario,0,0
+4,Marta,29.0,Mendoza,3,1800
+5,Jorge,31.0,La Plata,8,3200
+6,Lucía,28.0,Salta,10,4100
+7,Pedro,,Tucumán,1,400
+8,Sofía,33.0,Santa Fe,4,2100
+9,Diego,42.0,Neuquén,7,3300
+10,Valentina,30.0,Bahía Blanca,6,2950
