@@ -91,9 +91,6 @@ except Exception:
 #  LEER LA TABLA SIMULANDO UN NAVEGADOR
 # si obtiene No se pudo leer la tabla web: HTTP Error 403: Forbidden
 
-import requests
-import pandas as pd
-
 url = "https://es.wikipedia.org/wiki/Anexo:Ciudades_de_Argentina_por_poblaci%C3%B3n"
 
 headers = {
