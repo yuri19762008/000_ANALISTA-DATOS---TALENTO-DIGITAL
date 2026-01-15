@@ -1,6 +1,7 @@
 """
 Proyecto Módulo 4 - Preparación de datos con Python
 Flujo completo: NumPy + Pandas + obtención, limpieza, wrangling y agrupamiento.
+### VERIFICAR RUTAS EN EL CODIGO ###
 """
 
 import numpy as np
@@ -197,6 +198,7 @@ if "Ciudad" in df_wrangle.columns and "Segmento_Monto" in df_wrangle.columns:
         values="Monto_Total",
         aggfunc="mean",
         observed=True
+# Observed True o False si quieres mantener 100% el comportamiento actual
     )
 else:
     tabla_pivot = pd.DataFrame()
