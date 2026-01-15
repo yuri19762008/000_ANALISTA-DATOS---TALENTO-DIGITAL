@@ -1,20 +1,12 @@
-# 1. Importar NumPy
-import numpy as np 
+import numpy as np
 
-# 2. Crear un conjunto de datos aleatorios (ej: 10 filas, 3 columnas)
-# np.random.rand genera valores entre 0 y 1
-data = np.random.rand(10, 3)
-print("Datos Originales:\n", data)
+arr = np.array([10, 20, 30, 40, 50])
 
-# 3. Calcular la media por columna (axis=0 representa las columnas)
-mean_col = np.mean(data, axis=0)
-print("\nMedia por columna:", mean_col)
+# Crear una máscara: valores mayores que 25
+mask = arr > 25        # [False False  True  True  True]
 
-# 4. Calcular la desviación estándar por columna
-std_col = np.std(data, axis=0)
-print("Desviación estándar por columna:", std_col)
+# Usar la máscara para filtrar
+mayores_25 = arr[mask] # [30 40 50]
 
-# 5. Estandarizar los datos (Z-score normalization)
-# Fórmula: (dato - media) / desviación estándar
-data_scaled = (data - mean_col) / std_col
-print("\nDatos estandarizados (primeras 3 filas):\n", data_scaled[:3])
+print(mask)
+print(mayores_25)
