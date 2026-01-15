@@ -11,7 +11,7 @@ import pandas as pd
 # =========================
 
 # 1. Generar datos ficticios de clientes y transacciones usando NumPy
-np.random.seed(42)
+np.random.seed(10)
 
 num_clientes = 10
 
@@ -179,8 +179,9 @@ df_wrangle.to_csv("D:/000_ANALISTA DATOS , TALENTO DIGITAL/002_A3/PROYECTO/datas
 # 1. Tomar DataFrame final (df_wrangle)
 
 # 2. Agrupamiento por ciudad
+# Observed True o False si quieres mantener 100% el comportamiento actual
 if "Ciudad" in df_wrangle.columns:
-    agrupado_ciudad = df_wrangle.groupby("Ciudad").agg({
+    agrupado_ciudad = df_wrangle.groupby("Ciudad", observed=True ).agg({
         "Total_Compras": "sum",
         "Monto_Total": ["sum", "mean"],
         "Ticket_Promedio": "mean"
@@ -194,7 +195,8 @@ if "Ciudad" in df_wrangle.columns and "Segmento_Monto" in df_wrangle.columns:
         index="Ciudad",
         columns="Segmento_Monto",
         values="Monto_Total",
-        aggfunc="mean"
+        aggfunc="mean",
+        observed=True
     )
 else:
     tabla_pivot = pd.DataFrame()
@@ -214,4 +216,4 @@ df_wrangle.to_csv("D:/000_ANALISTA DATOS , TALENTO DIGITAL/002_A3/PROYECTO/datas
 df_wrangle.to_excel("D:/000_ANALISTA DATOS , TALENTO DIGITAL/002_A3/PROYECTO/dataset_final.xlsx", index=False)
 
 if __name__ == "__main__":
-    print("Flujo de preparación de datos ejecutado correctamente.")
+    print("\n----Flujo de preparación de datos ejecutado correctamente.----")
