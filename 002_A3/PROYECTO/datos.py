@@ -13,7 +13,7 @@ import pandas as pd
 # 1. Generar datos ficticios de clientes y transacciones usando NumPy
 np.random.seed(42)
 
-num_clientes = 50
+num_clientes = 10
 
 ids = np.arange(1, num_clientes + 1)
 edades = np.random.randint(18, 70, size=num_clientes)
