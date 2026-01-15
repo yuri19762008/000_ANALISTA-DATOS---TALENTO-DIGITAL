@@ -1,11 +1,12 @@
 """
 Proyecto Módulo 4 - Preparación de datos con Python
 Flujo completo: NumPy + Pandas + obtención, limpieza, wrangling y agrupamiento.
-### VERIFICAR RUTAS EN EL CODIGO ###
+### VERIFICAR O MODIFICAR RUTAS DE GUARDADO EN EL CODIGO ###
 """
 
 import numpy as np
 import pandas as pd
+import requests
 
 # =========================
 # LECCIÓN 1 - NumPy
@@ -79,11 +80,35 @@ df_ecom_xlsx = pd.read_excel("D:/000_ANALISTA DATOS , TALENTO DIGITAL/002_A3/PRO
 # 3. Opcional: leer una tabla desde la web
 try:
     tablas_web = pd.read_html(
-        "https://en.wikipedia.org/wiki/List_of_cities_in_Argentina_by_population"
+        "https://es.wikipedia.org/wiki/Anexo:Ciudades_de_Argentina_por_poblaci%C3%B3n"
     )
     tabla_ciudades = tablas_web[0]
 except Exception:
     tabla_ciudades = pd.DataFrame()
+    print("\n----No se pudo leer la tabla web:----\n")
+    
+
+#  LEER LA TABLA SIMULANDO UN NAVEGADOR
+# si obtiene No se pudo leer la tabla web: HTTP Error 403: Forbidden
+
+import requests
+import pandas as pd
+
+url = "https://es.wikipedia.org/wiki/Anexo:Ciudades_de_Argentina_por_poblaci%C3%B3n"
+
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                  "AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/120.0 Safari/537.36"
+}
+
+resp = requests.get(url, headers=headers)
+resp.raise_for_status()  # lanza error si no es 200
+
+tablas_web = pd.read_html(resp.text)
+tabla_ciudades = tablas_web[0]
+
+print(tabla_ciudades.head())
 
 # 4. Unificar fuentes de datos
 df_ecom_csv["ID"] = df_ecom_csv["ID"].astype(int)
