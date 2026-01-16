@@ -54,7 +54,7 @@ print(df_lista)
 from pathlib import Path
 import pandas as pd
 
-base_dir = Path(__file__).resolve().parent. #esta línea deja en base_dir el directorio donde vive el archivo Python que se está ejecutando, no importa desde dónde lo llames.
+base_dir = Path(__file__).resolve().parent #esta línea deja en base_dir el directorio donde vive el archivo Python que se está ejecutando, no importa desde dónde lo llames.
 csv_path = base_dir / "Titanic-Dataset.csv"
 
 df_csv = pd.read_csv(csv_path)
