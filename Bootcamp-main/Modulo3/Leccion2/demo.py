@@ -1,11 +1,5 @@
 import pandas as pd
 
-df = pd.DataFrame({
-    "Nombre": ["Ana", "Juan", "María", "Pedro", "Luis"],
-    "Edad": [23, 30, 27, 22, 35],
-    "Ciudad": ["Santiago", "Valpo", "Concepción", "La Serena", "Antofagasta"]
-})
+serie = pd.Series([10,20,30])
 
-#1) Seleccionar una columna
-nombres = df["Nombre"]
-print(nombres)
+print(serie)
