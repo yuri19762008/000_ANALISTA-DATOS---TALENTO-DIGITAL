@@ -44,7 +44,7 @@ spark = SparkSession.builder \
     .getOrCreate()
 
 spark.sparkContext.setLogLevel("ERROR")   # silenciamos logs innecesarios
-print("✅ Paso 1 – Sesión Spark creada correctamente")
+print("Paso 1 – Sesión Spark creada correctamente")
 print(f"   Versión de Spark: {spark.version}\n")
 
 
@@ -60,13 +60,13 @@ print("─" * 60)
 
 df = spark.read.csv("dataset_maestro.csv", header=True, inferSchema=True)
 
-print(f"\n📊 Dimensiones del dataset: {df.count()} filas × {len(df.columns)} columnas\n")
+print(f"\nDimensiones del dataset: {df.count()} filas × {len(df.columns)} columnas\n")
 
 # Verificar valores nulos por columna
 # IMPORTANTE: isnan() solo aplica a columnas numéricas (DoubleType, FloatType).
 # Para columnas de texto usamos solo isNull().
 # Detectamos el tipo de cada columna con df.dtypes y aplicamos la lógica correcta.
-print("🔍 Valores nulos por columna:")
+print("Valores nulos por columna:")
 from pyspark.sql.types import DoubleType, FloatType
 
 def check_null(col_name, dtype):
@@ -83,11 +83,11 @@ df.select([
 ]).show(vertical=True)
 
 # Distribución del target
-print("📈 Distribución de la variable objetivo 'comprara':")
+print(" Distribución de la variable objetivo 'comprara':")
 df.groupBy("comprara").count().orderBy("comprara").show()
 
 # Estadísticas descriptivas de las variables numéricas clave
-print("📋 Estadísticas descriptivas (variables numéricas clave):")
+print(" Estadísticas descriptivas (variables numéricas clave):")
 df.select(
     "edad", "antiguedad_dias", "paginas_vistas_7d", "visitas_7d",
     "items_carrito", "compras_30d", "ticket_promedio"
@@ -135,7 +135,7 @@ TARGET = "comprara"   # 1 = comprará, 0 = no comprará
 # Seleccionamos solo las columnas que usaremos
 df_modelo = df.select(FEATURES + [TARGET]).dropna()
 
-print(f"\n✅ Variables seleccionadas: {len(FEATURES)} features + 1 target")
+print(f"\n Variables seleccionadas: {len(FEATURES)} features + 1 target")
 print(f"   Filas tras limpiar nulos: {df_modelo.count()}\n")
 
 
@@ -165,7 +165,7 @@ scaler = StandardScaler(
     withStd=True
 )
 
-print("✅ VectorAssembler y StandardScaler configurados\n")
+print(" VectorAssembler y StandardScaler configurados\n")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -214,7 +214,7 @@ pipeline_lr = Pipeline(stages=[assembler, scaler, lr])
 
 print("⏳ Entrenando Regresión Logística…")
 model_lr = pipeline_lr.fit(train_df)
-print("✅ Modelo de Regresión Logística entrenado\n")
+print(" Modelo de Regresión Logística entrenado\n")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -241,9 +241,9 @@ rf = RandomForestClassifier(
 # Pipeline solo con assembler para RF (sin scaler)
 pipeline_rf = Pipeline(stages=[assembler, rf])
 
-print("⏳ Entrenando Random Forest…")
+print(" Entrenando Random Forest…")
 model_rf = pipeline_rf.fit(train_df)
-print("✅ Modelo Random Forest entrenado\n")
+print(" Modelo Random Forest entrenado\n")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -284,12 +284,12 @@ cv = CrossValidator(
     seed=42
 )
 
-print("⏳ Ejecutando validación cruzada (6 combinaciones × 3 folds = 18 entrenamientos)…")
+print(" Ejecutando validación cruzada (6 combinaciones × 3 folds = 18 entrenamientos)…")
 cv_model = cv.fit(train_df)
 
 # Mejores hiperparámetros encontrados
 best_lr = cv_model.bestModel.stages[-1]
-print(f"\n✅ Mejor regParam : {best_lr.getRegParam()}")
+print(f"\n Mejor regParam : {best_lr.getRegParam()}")
 print(f"   Mejor maxIter  : {best_lr.getMaxIter()}\n")
 
 
@@ -330,7 +330,7 @@ resultados.append(evaluar_modelo(model_rf,  "Random Forest",          test_df))
 resultados.append(evaluar_modelo(cv_model,  "LR + CrossValidation",   test_df))
 
 # Importancia de variables (Random Forest)
-print("\n\n📊 Importancia de variables – Random Forest:")
+print("\n\n Importancia de variables – Random Forest:")
 rf_model = model_rf.stages[-1]
 feature_imp = sorted(
     zip(FEATURES, rf_model.featureImportances.toArray()),
@@ -385,5 +385,5 @@ RECOMENDACIONES PARA MEJORAR EL MODELO:
   o EMR de AWS para procesar millones de registros con el mismo código.
 """)
 
-print("✅ Script completado exitosamente.")
+print(" Script completado exitosamente.")
 spark.stop()
