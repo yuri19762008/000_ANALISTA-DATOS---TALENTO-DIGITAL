@@ -330,8 +330,8 @@ En el contexto de este proyecto, Fashion-MNIST representa el **catálogo visual 
 #### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/usuario/retail-analytics-pipeline.git
-cd retail-analytics-pipeline
+git clone https://github.com/yuri19762008/000_ANALISTA_DATOS/tree/19f48de1c85ca9297d8d296b173bbd9efe679d93/009_BIG_DATA_9/PROYECTO
+
 ```
 
 #### 2. Crear entorno virtual con Python 3.10
