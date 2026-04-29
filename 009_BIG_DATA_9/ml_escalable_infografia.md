@@ -3,22 +3,22 @@
 ## Resumen ejecutivo
 
 ### Propósito del tema
-Este material introduce **Spark MLlib** como la biblioteca de *machine learning* de Apache Spark orientada al trabajo con **grandes volúmenes de datos**. Su idea central es que el aprendizaje automático tradicional puede quedarse corto cuando los datos ya no caben en una sola máquina, por lo que se necesita procesamiento distribuido y escalable. [file:7]
+Este material introduce **Spark MLlib** como la biblioteca de *machine learning* de Apache Spark orientada al trabajo con **grandes volúmenes de datos**. Su idea central es que el aprendizaje automático tradicional puede quedarse corto cuando los datos ya no caben en una sola máquina, por lo que se necesita procesamiento distribuido y escalable. 
 
 ### Qué aporta MLlib
-MLlib permite construir modelos de **clasificación, regresión, clustering, reducción de dimensionalidad y recomendación** dentro del ecosistema Spark. Su valor está en combinar escalabilidad horizontal, ejecución en clústeres e integración con componentes como Spark SQL y Spark Streaming. [file:7]
+MLlib permite construir modelos de **clasificación, regresión, clustering, reducción de dimensionalidad y recomendación** dentro del ecosistema Spark. Su valor está en combinar escalabilidad horizontal, ejecución en clústeres e integración con componentes como Spark SQL y Spark Streaming. 
 
 ### Estructuras de datos clave
-La estructura principal es el **DataFrame**, que organiza datos en columnas distribuidas. Para representar variables numéricas se usan **vectores densos y dispersos**, y para operaciones más avanzadas también se emplean **matrices**. [file:7]
+La estructura principal es el **DataFrame**, que organiza datos en columnas distribuidas. Para representar variables numéricas se usan **vectores densos y dispersos**, y para operaciones más avanzadas también se emplean **matrices**. 
 
 ### Flujo de trabajo en MLlib
-El enfoque de MLlib sigue una secuencia clara: **preparar datos, definir algoritmo, dividir entrenamiento/prueba, entrenar, predecir y evaluar**. Este flujo puede integrarse en un **Pipeline**, lo que mejora la automatización, la reproducibilidad y el mantenimiento del proceso. [file:7]
+El enfoque de MLlib sigue una secuencia clara: **preparar datos, definir algoritmo, dividir entrenamiento/prueba, entrenar, predecir y evaluar**. Este flujo puede integrarse en un **Pipeline**, lo que mejora la automatización, la reproducibilidad y el mantenimiento del proceso. 
 
 ### Algoritmos destacados
-En aprendizaje supervisado aparecen modelos como **Regresión Logística, Regresión Lineal, Árboles de Decisión, Random Forest y Gradient-Boosted Trees**. En aprendizaje no supervisado destacan **K-Means, Gaussian Mixture Model (GMM), PCA y SVD**, además de **ALS** para recomendación. [file:7]
+En aprendizaje supervisado aparecen modelos como **Regresión Logística, Regresión Lineal, Árboles de Decisión, Random Forest y Gradient-Boosted Trees**. En aprendizaje no supervisado destacan **K-Means, Gaussian Mixture Model (GMM), PCA y SVD**, además de **ALS** para recomendación. 
 
 ### Evaluación y optimización
-MLlib incluye métricas para clasificación y regresión, como **AUC, F1, RMSE y MAE**, junto con herramientas de optimización como **validación cruzada** y **Grid Search**. Esto permite comparar modelos y ajustar hiperparámetros de forma objetiva. [file:7]
+MLlib incluye métricas para clasificación y regresión, como **AUC, F1, RMSE y MAE**, junto con herramientas de optimización como **validación cruzada** y **Grid Search**. Esto permite comparar modelos y ajustar hiperparámetros de forma objetiva. 
 
 ## Infografías
 
@@ -112,22 +112,22 @@ Spark MLlib
 ## Resumen ejecutivo
 
 ### Propósito del tema
-Este tema presenta Spark MLlib como la biblioteca de machine learning de Apache Spark para trabajar con grandes volúmenes de datos. Su foco está en resolver problemas donde el aprendizaje automático tradicional ya no escala bien en una sola máquina. [file:7]
+Este tema presenta Spark MLlib como la biblioteca de machine learning de Apache Spark para trabajar con grandes volúmenes de datos. Su foco está en resolver problemas donde el aprendizaje automático tradicional ya no escala bien en una sola máquina. 
 
 ### Qué ofrece MLlib
-MLlib permite desarrollar soluciones de clasificación, regresión, clustering, reducción de dimensionalidad y recomendación. Su fortaleza está en el procesamiento distribuido, la integración con Spark y la ejecución eficiente en clústeres. [file:7]
+MLlib permite desarrollar soluciones de clasificación, regresión, clustering, reducción de dimensionalidad y recomendación. Su fortaleza está en el procesamiento distribuido, la integración con Spark y la ejecución eficiente en clústeres. 
 
 ### Estructuras de datos principales
-La estructura base es el DataFrame, usada para cargar, transformar y almacenar resultados. También se utilizan vectores densos y dispersos para representar características, y matrices para operaciones más avanzadas. [file:7]
+La estructura base es el DataFrame, usada para cargar, transformar y almacenar resultados. También se utilizan vectores densos y dispersos para representar características, y matrices para operaciones más avanzadas.
 
 ### Flujo general de trabajo
-El proceso estándar consiste en preparar datos, definir el algoritmo, dividir en entrenamiento y prueba, entrenar, predecir y evaluar. Este flujo se puede encapsular en un Pipeline para automatizar y hacer reproducible el modelado. [file:7]
+El proceso estándar consiste en preparar datos, definir el algoritmo, dividir en entrenamiento y prueba, entrenar, predecir y evaluar. Este flujo se puede encapsular en un Pipeline para automatizar y hacer reproducible el modelado. 
 
 ### Algoritmos más importantes
-En supervisado destacan Regresión Logística, Regresión Lineal, Árboles, Random Forest y Gradient-Boosted Trees. En no supervisado resaltan K-Means, GMM, PCA y SVD, además de ALS para recomendación. [file:7]
+En supervisado destacan Regresión Logística, Regresión Lineal, Árboles, Random Forest y Gradient-Boosted Trees. En no supervisado resaltan K-Means, GMM, PCA y SVD, además de ALS para recomendación.
 
 ### Evaluación y mejora
-MLlib incorpora métricas como AUC, F1, RMSE y MAE, además de herramientas de validación cruzada y Grid Search. Esto ayuda a medir rendimiento y optimizar hiperparámetros con criterio técnico. [file:7]
+MLlib incorpora métricas como AUC, F1, RMSE y MAE, además de herramientas de validación cruzada y Grid Search. Esto ayuda a medir rendimiento y optimizar hiperparámetros con criterio técnico.
 
 ## Infografías
 
@@ -166,12 +166,12 @@ Preparación → Features/Label → Train/Test → Entrenamiento → Predicción
 
 ## Puntos de estudio rápido
 
-- MLlib pertenece al ecosistema Apache Spark. [file:7]
-- Está pensado para datos masivos y procesamiento distribuido. [file:7]
-- Trabaja principalmente con DataFrames y vectores. [file:7]
-- Usa pipelines para automatizar el flujo de ML. [file:7]
-- Incluye algoritmos supervisados y no supervisados. [file:7]
-- Permite evaluar y optimizar modelos a escala. [file:7]
+- MLlib pertenece al ecosistema Apache Spark.
+- Está pensado para datos masivos y procesamiento distribuido.
+- Trabaja principalmente con DataFrames y vectores.
+- Usa pipelines para automatizar el flujo de ML. 
+- Incluye algoritmos supervisados y no supervisados.
+- Permite evaluar y optimizar modelos a escala. 
 ```
 
 ## Estructura de PowerPoint
@@ -280,7 +280,7 @@ Preparación → Features/Label → Train/Test → Entrenamiento → Predicción
 - Evaluación: gráfico o velocímetro
 
 ### Gráficos recomendados
-- Barras: comparar tipos de algoritmos o etapas del flujo
-- Diagrama de flujo: pipeline supervisado
-- Tabla comparativa: supervisado vs no supervisado
-- Esquema jerárquico: estructuras de datos de MLlib
+   - Barras: comparar tipos de algoritmos o etapas del flujo
+   - Diagrama de flujo: pipeline supervisado
+   - Tabla comparativa: supervisado vs no supervisado
+   - Esquema jerárquico: estructuras de datos de MLlib

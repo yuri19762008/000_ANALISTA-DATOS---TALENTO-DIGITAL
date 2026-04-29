@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="slides-format" content="viewport" />
+  <title>Machine Learning Escalable con Spark MLlib</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#06111f; --bg2:#0b1728; --card:rgba(255,255,255,.06); --border:rgba(255,255,255,.12);
+      --text:#eaf2ff; --muted:#9fb3c8; --blue:#38bdf8; --cyan:#22d3ee; --green:#34d399; --orange:#fb923c;
+      --shadow:0 20px 50px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;overflow:hidden;background:radial-gradient(circle at top left,#0b2540 0%,#06111f 45%,#030712 100%);color:var(--text);font-family:'Inter',sans-serif}
+    .deck{position:relative;width:100vw;height:100vh}
+    .slide{position:absolute;inset:0;display:none;padding:52px 64px 72px 64px;overflow:hidden}
+    .slide.active{display:block}
+    .mesh{position:absolute;inset:0;pointer-events:none}
+    .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.16;animation:float 14s ease-in-out infinite}
+    .b1{width:360px;height:360px;right:-80px;top:-80px;background:var(--blue)}
+    .b2{width:260px;height:260px;left:-60px;bottom:-40px;background:var(--cyan);animation-duration:18s}
+    .b3{width:180px;height:180px;left:28%;top:18%;background:var(--green);animation-duration:16s}
+    @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-20px) scale(1.08)}}
+    .content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:1180px;margin:0 auto}
+    .eyebrow{font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);font-weight:700;margin-bottom:12px}
+    h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0}
+    h1{font-size:64px;line-height:1.03;max-width:900px}
+    h2{font-size:40px;line-height:1.1;margin-bottom:18px}
+    .subtitle{font-size:22px;color:var(--muted);max-width:820px;line-height:1.45;margin-top:14px}
+    .grid-2{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px;backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+    .card h3{font-size:22px;margin-bottom:10px}
+    .card p{margin:0;color:var(--muted);line-height:1.5;font-size:17px}
+    .bullet-list{display:grid;gap:14px;margin-top:10px}
+    .bullet{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);border-radius:16px}
+    .dot{width:12px;height:12px;border-radius:50%;margin-top:8px;background:linear-gradient(135deg,var(--blue),var(--green));flex:none}
+    .bullet span{font-size:22px;line-height:1.4;color:var(--text)}
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25);font-size:15px;color:#dff7ff;font-weight:600}
+    .stat{padding:24px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow)}
+    .stat .n{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .stat .l{margin-top:8px;color:var(--muted);font-size:16px;line-height:1.35}
+    .table{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .col-title{font-size:24px;font-family:'Space Grotesk',sans-serif;margin-bottom:10px}
+    .mini{font-size:15px;color:var(--muted)}
+    .flow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}
+    .step{padding:14px 18px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);font-weight:600}
+    .arrow{font-size:28px;color:var(--cyan)}
+    .footer{position:absolute;bottom:20px;right:28px;z-index:10;color:#8ea4bc;font-size:14px}
+    .nav{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:10px;z-index:20;background:rgba(255,255,255,.06);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);padding:10px 16px;border-radius:999px}
+    .nav button{width:42px;height:42px;border:none;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#03111d;font-size:18px;font-weight:700;cursor:pointer}
+    .hero-icon{font-size:88px;line-height:1;filter:drop-shadow(0 10px 30px rgba(56,189,248,.25))}
+    .spark{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
+    .spark .card{min-height:146px}
+    .center{align-items:center;text-align:center}
+    .tag{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.2);color:#ddfff3;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  </style>
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide active">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+    <div class="content center">
+      <div class="hero-icon">⚡</div>
+      <div class="eyebrow">Apache Spark · MLlib · Big Data</div>
+      <h1>Machine Learning Escalable</h1>
+      <p class="subtitle">Una visión clara y visual de cómo <strong>Spark MLlib</strong> permite entrenar, evaluar y desplegar modelos sobre grandes volúmenes de datos mediante procesamiento distribuido. [file:7]</p>
+      <div style="margin-top:22px"><span class="pill">Estudio profesional · versión visual</span></div>
+    </div>
+    <div class="footer">1 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div></div>
+    <div class="content">
+      <div class="eyebrow">Mapa del contenido</div>
+      <h2>Ruta de estudio</h2>
+      <div class="grid-4" style="margin-top:22px">
+        <div class="card"><h3>01. Problema</h3><p>Por qué el ML tradicional se queda corto cuando los datos crecen demasiado. [file:7]</p></div>
+        <div class="card"><h3>02. MLlib</h3><p>Qué es, por qué escala y cómo se integra con el ecosistema Spark. [file:7]</p></div>
+        <div class="card"><h3>03. Estructuras</h3><p>DataFrames, vectores, matrices, modelos y pipelines como base técnica. [file:7]</p></div>
+        <div class="card"><h3>04. Implementación</h3><p>Flujos supervisados y no supervisados con entrenamiento, predicción y evaluación. [file:7]</p></div>
+      </div>
+    </div>
+    <div class="footer">2 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+    <div class="content grid-2">
+      <div>
+        <div class="eyebrow">El problema</div>
+        <h2>¿Por qué se necesita ML escalable?</h2>
+        <div class="bullet-list">
+          <div class="bullet"><div class="dot"></div><span>El crecimiento exponencial de datos hace insuficiente el modelado en una sola máquina. [file:7]</span></div>
+          <div class="bullet"><div class="dot"></div><span>Los límites de memoria y tiempo afectan entrenamiento, evaluación y predicción. [file:7]</span></div>
+          <div class="bullet"><div class="dot"></div><span>MLlib responde con procesamiento distribuido y ejecución paralela en clústeres. [file:7]</span></div>
+        </div>
+      </div>
+      <div class="grid-3" style="grid-template-columns:1fr;gap:16px">
+        <div class="stat"><div class="n">1 máquina</div><div class="l">Enfoque tradicional: memoria local, menor capacidad de crecimiento. [file:7]</div></div>
+        <div class="stat"><div class="n">Clúster</div><div class="l">Enfoque Spark: paralelismo, distribución y trabajo a escala real. [file:7]</div></div>
+      </div>
+    </div>
+    <div class="footer">3 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div></div>
+    <div class="content">
+      <div class="eyebrow">Biblioteca central</div>
+      <h2>Qué es Spark MLlib</h2>
+      <div class="spark">
+        <div class="card"><h3>Definición</h3><p>MLlib es la biblioteca de machine learning de Apache Spark para construir, entrenar y evaluar modelos de forma distribuida. [file:7]</p></div>
+        <div class="card"><h3>Relevancia</h3><p>Se integra de forma nativa con Spark SQL, Spark Streaming y otros módulos del ecosistema. [file:7]</p></div>
+        <div class="card"><h3>Problemas que resuelve</h3><p>Clasificación, regresión, clustering, reducción de dimensionalidad y recomendación. [file:7]</p></div>
+        <div class="card"><h3>Ventaja principal</h3><p>Procesa datasets que no caben en memoria local y reduce tiempos gracias al paralelismo. [file:7]</p></div>
+      </div>
+    </div>
+    <div class="footer">4 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+    <div class="content">
+      <div class="eyebrow">Base técnica</div>
+      <h2>Estructuras de datos clave</h2>
+      <div class="grid-3" style="margin-top:16px">
+        <div class="card"><h3>DataFrame</h3><p>Estructura principal para entrada, transformación, predicción y resultados. [file:7]</p></div>
+        <div class="card"><h3>DenseVector</h3><p>Conviene cuando la mayoría de los valores son distintos de cero. [file:7]</p></div>
+        <div class="card"><h3>SparseVector</h3><p>Ahorra memoria cuando predominan los ceros y solo guarda índices no nulos. [file:7]</p></div>
+        <div class="card"><h3>Matrix</h3><p>Se usa en operaciones bidimensionales como SVD y factorización matricial. [file:7]</p></div>
+        <div class="card"><h3>Pipeline</h3><p>Encadena etapas de preparación, entrenamiento y evaluación. [file:7]</p></div>
+        <div class="card"><h3>Model / Transformer</h3><p>Separan la fase de aprendizaje de la fase de aplicación a nuevos datos. [file:7]</p></div>
+      </div>
+    </div>
+    <div class="footer">5 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div></div>
+    <div class="content">
+      <div class="eyebrow">Algoritmos</div>
+      <h2>Supervisado vs no supervisado</h2>
+      <div class="table" style="margin-top:18px">
+        <div class="card">
+          <div class="tag">Supervisado</div>
+          <div class="col-title" style="margin-top:14px">Predice con etiquetas</div>
+          <div class="bullet-list">
+            <div class="bullet"><div class="dot"></div><span>Logistic Regression para clasificación binaria y multiclase. [file:7]</span></div>
+            <div class="bullet"><div class="dot"></div><span>Linear Regression para valores continuos. [file:7]</span></div>
+            <div class="bullet"><div class="dot"></div><span>También incluye árboles, Random Forest y Gradient-Boosted Trees. [file:7]</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="tag" style="background:rgba(251,146,60,.12);border-color:rgba(251,146,60,.2);color:#fff2e8">No supervisado</div>
+          <div class="col-title" style="margin-top:14px">Descubre patrones</div>
+          <div class="bullet-list">
+            <div class="bullet"><div class="dot"></div><span>K-Means agrupa observaciones por similitud. [file:7]</span></div>
+            <div class="bullet"><div class="dot"></div><span>GMM modela clústeres con distribuciones gaussianas. [file:7]</span></div>
+            <div class="bullet"><div class="dot"></div><span>PCA reduce dimensión conservando la mayor información posible. [file:7]</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">6 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+    <div class="content">
+      <div class="eyebrow">Pipeline</div>
+      <h2>Flujo supervisado en MLlib</h2>
+      <div class="flow">
+        <div class="step">Preparación</div><div class="arrow">→</div>
+        <div class="step">Features + Label</div><div class="arrow">→</div>
+        <div class="step">Train / Test</div><div class="arrow">→</div>
+        <div class="step">Entrenamiento</div><div class="arrow">→</div>
+        <div class="step">Predicción</div><div class="arrow">→</div>
+        <div class="step">Evaluación</div>
+      </div>
+      <div class="grid-3" style="margin-top:30px">
+        <div class="card"><h3>Transformadores</h3><p>StringIndexer, OneHotEncoder, VectorAssembler y Scaler preparan los datos. [file:7]</p></div>
+        <div class="card"><h3>Modelos</h3><p>Se entrenan con <em>fit()</em> y luego se aplican con <em>transform()</em>. [file:7]</p></div>
+        <div class="card"><h3>Ventaja</h3><p>El flujo se vuelve reproducible, mantenible y más fácil de desplegar. [file:7]</p></div>
+      </div>
+    </div>
+    <div class="footer">7 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div></div>
+    <div class="content">
+      <div class="eyebrow">Evaluación</div>
+      <h2>Métricas y optimización</h2>
+      <div class="grid-4" style="margin-top:18px">
+        <div class="stat"><div class="n">AUC</div><div class="l">Muy usada en clasificación binaria para medir separación entre clases. [file:7]</div></div>
+        <div class="stat"><div class="n">F1</div><div class="l">Combina precisión y recall en una sola medida. [file:7]</div></div>
+        <div class="stat"><div class="n">RMSE</div><div class="l">Evalúa error típico en problemas de regresión. [file:7]</div></div>
+        <div class="stat"><div class="n">MAE</div><div class="l">Mide error absoluto medio, útil por su interpretación directa. [file:7]</div></div>
+      </div>
+      <div class="bullet-list" style="margin-top:22px">
+        <div class="bullet"><div class="dot"></div><span>Grid Search prueba combinaciones de hiperparámetros para encontrar mejores configuraciones. [file:7]</span></div>
+        <div class="bullet"><div class="dot"></div><span>La validación cruzada compara modelos con mayor robustez. [file:7]</span></div>
+      </div>
+    </div>
+    <div class="footer">8 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+    <div class="content grid-2">
+      <div>
+        <div class="eyebrow">Valor práctico</div>
+        <h2>Por qué MLlib es útil en Big Data</h2>
+        <div class="bullet-list">
+          <div class="bullet"><div class="dot"></div><span>Procesa y modela datasets que superan la capacidad de una sola máquina. [file:7]</span></div>
+          <div class="bullet"><div class="dot"></div><span>Permite construir soluciones end-to-end en una sola plataforma Spark. [file:7]</span></div>
+          <div class="bullet"><div class="dot"></div><span>Facilita automatización, reproducibilidad y mantenimiento del flujo analítico. [file:7]</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Idea fuerza</h3>
+        <p style="font-size:24px;line-height:1.5;color:var(--text)">MLlib no solo ejecuta algoritmos: organiza un ecosistema completo de <strong>preparación + modelado + evaluación</strong> sobre datos distribuidos. [file:7]</p>
+        <p class="mini" style="margin-top:14px">Eso lo convierte en una pieza central para proyectos de machine learning a escala real. [file:7]</p>
+      </div>
+    </div>
+    <div class="footer">9 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+    <div class="content center">
+      <div class="eyebrow">Cierre</div>
+      <h2 style="font-size:52px">Resumen final</h2>
+      <div class="grid-3" style="margin-top:26px;width:100%">
+        <div class="card"><h3>Escala</h3><p>MLlib responde al problema del crecimiento masivo de datos con procesamiento distribuido. [file:7]</p></div>
+        <div class="card"><h3>Estructura</h3><p>DataFrames, vectores y pipelines sostienen el trabajo técnico del modelado. [file:7]</p></div>
+        <div class="card"><h3>Aplicación</h3><p>Permite implementar, evaluar y mejorar modelos supervisados y no supervisados en Spark. [file:7]</p></div>
+      </div>
+    </div>
+    <div class="footer">10 / 10</div>
+  </section>
+
+</div>
+<div class="nav"><button onclick="chg(-1)">◀</button><button onclick="chg(1)">▶</button></div>
+<script>
+  let i=0; const slides=[...document.querySelectorAll('.slide')];
+  function show(n){slides[i].classList.remove('active'); i=(n+slides.length)%slides.length; slides[i].classList.add('active');}
+  function chg(d){show(i+d)}
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')chg(1); if(e.key==='ArrowLeft')chg(-1)})
+</script>
+</body>
+</html>
