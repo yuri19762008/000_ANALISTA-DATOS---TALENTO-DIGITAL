@@ -1,14 +1,8 @@
 \# Infografía: Sentencias iterativas en Python
 
-
-
 \## 1. ¿Qué son las sentencias iterativas?
 
-
-
 Las \*\*sentencias iterativas\*\* permiten repetir un bloque de código varias veces, de forma automática, sin escribir las mismas instrucciones una y otra vez. \
-
-
 
 Se usan especialmente cuando:
 
@@ -17,8 +11,6 @@ Se usan especialmente cuando:
 \- Necesitas aplicar la misma operación a una \*\*colección\*\* (lista, diccionario, etc.).
 
 \- Quieres \*\*automatizar tareas repetitivas\*\* y evitar errores humanos. \
-
-
 
 \*\*Ventajas principales:\*\*
 
@@ -30,17 +22,9 @@ Se usan especialmente cuando:
 
 \- Optimización: permite construir algoritmos más complejos de forma simple. \
 
-
-
-
-
 \## 2. Herramientas de iteración en Python
 
-
-
 Python ofrece tres pilares básicos para iterar: `while`, `for` y `range`. \
-
-
 
 \- \*\*`while`\*\*: repite mientras una condición sea verdadera.
 
@@ -48,39 +32,23 @@ Python ofrece tres pilares básicos para iterar: `while`, `for` y `range`. \
 
 \- \*\*`range`\*\*: genera secuencias numéricas para controlar iteraciones. \
 
-
-
 Idea clave:
 
 \- Usa `while` cuando depende de una \*\*condición lógica\*\*.
 
 \- Usa `for` cuando repites sobre una \*\*colección\*\* o un \*\*rango conocido\*\* de valores. \
 
-
-
-
-
 \## 3. Bucle `while`
-
-
 
 \### 3.1. Concepto
 
-
-
 `while` ejecuta un bloque de código \*\*mientras se cumpla una condición\*\*. \
-
-
 
 \- Es útil cuando \*\*no sabes\*\* cuántas veces vas a repetir.
 
 \- La repetición termina cuando la condición deja de ser verdadera. \
 
-
-
 \### 3.2. Sintaxis básica
-
-
 
 ```python
 
@@ -92,11 +60,7 @@ while condicion:
 
 ```
 
-
-
 Ejemplo: contar hasta 5. \
-
-
 
 ```python
 
@@ -110,8 +74,6 @@ while contador <= 5:
 
 ```
 
-
-
 Interpretación:
 
 \- Partes en 1.
@@ -120,21 +82,11 @@ Interpretación:
 
 \- Cuando llega a 6, la condición ya no se cumple y el bucle termina. \
 
-
-
-
-
 \### 3.3. Bucles infinitos
-
-
 
 Si \*\*no actualizas\*\* la variable de control, el bucle puede ser \*\*infinito\*\*. \
 
-
-
 Ejemplo de error típico:
-
-
 
 ```python
 
@@ -148,19 +100,11 @@ while contador <= 5:
 
 ```
 
-
-
 \- La condición nunca cambia, el bucle nunca termina.
 
 \- Por eso, siempre hay que revisar la \*\*condición de salida\*\*. \
 
-
-
-
-
 \### 3.4. Usos típicos de `while`
-
-
 
 \- Validar entrada de usuario hasta que sea correcta.
 
@@ -168,11 +112,7 @@ while contador <= 5:
 
 \- Repetir una acción “hasta que pase algo”. \
 
-
-
 Mini–ejemplo: pedir un número positivo.
-
-
 
 ```python
 
@@ -186,29 +126,15 @@ while numero <= 0:
 
 ```
 
-
-
-
-
 \## 4. Bucle `for`
-
-
 
 \### 4.1. Concepto
 
-
-
 `for` recorre los elementos de una \*\*colección\*\* (lista, tupla, diccionario, etc.) o una \*\*secuencia\*\*, uno por uno. \
-
-
 
 \- Es ideal cuando conoces la \*\*cantidad de iteraciones\*\* o depende del tamaño de la colección. \
 
-
-
 \### 4.2. Sintaxis básica
-
-
 
 ```python
 
@@ -218,15 +144,11 @@ for elemento in coleccion:
 
 ```
 
-
-
 Ejemplo con lista: \
-
-
 
 ```python
 
-numeros = 
+numeros =
 
 for n in numeros:
 
@@ -234,13 +156,7 @@ for n in numeros:
 
 ```
 
-
-
-
-
 \### 4.3. Ventajas de `for` frente a `while`
-
-
 
 \- No necesitas manejar manualmente la variable de control.
 
@@ -248,21 +164,11 @@ for n in numeros:
 
 \- Evita muchos bucles infinitos. \
 
-
-
-
-
 \### 4.4. `for` con `range`
-
-
 
 Permite crear una secuencia de enteros y recorrerlos con `for`. \
 
-
-
 Formas típicas:
-
-
 
 ```python
 
@@ -290,25 +196,15 @@ for i in range(1, 10, 2):   # 1,3,5,7,9
 
 ```
 
-
-
 Usos:
 
 \- Repetir una acción un número exacto de veces.
 
 \- Trabajar por \*\*índice\*\* en listas. \
 
-
-
-
-
 \## 5. Iterar listas
 
-
-
 \### 5.1. Recorrer elementos
-
-
 
 ```python
 
@@ -320,21 +216,13 @@ for fruta in frutas:
 
 ```
 
-
-
 Interpretación:
 
 \- En cada vuelta, `fruta` toma un valor de la lista.
 
 \- Se usa para aplicar la misma operación a cada elemento. \
 
-
-
-
-
 \### 5.2. Modificar con comprensión de listas
-
-
 
 ```python
 
@@ -344,11 +232,7 @@ frutas\_mayus = \[f.upper() for f in frutas]
 
 ```
 
-
-
 Sintaxis general: \
-
-
 
 ```python
 
@@ -356,25 +240,15 @@ nueva\_lista = \[expresion for elemento in iterable if condicion\_opcional]
 
 ```
 
-
-
 Ideas:
 
 \- Menos código que un `for` clásico.
 
 \- Muy útil para \*\*transformar\*\* datos. \
 
-
-
-
-
 \## 6. Iterar diccionarios
 
-
-
 Los diccionarios guardan \*\*pares clave–valor\*\*. \
-
-
 
 ```python
 
@@ -382,11 +256,7 @@ edades = {"Ana": 25, "Carlos": 30, "María": 22}
 
 ```
 
-
-
 \### 6.1. Recorrer claves y valores con `items()`
-
-
 
 ```python
 
@@ -396,17 +266,11 @@ for nombre, edad in edades.items():
 
 ```
 
-
-
 \### 6.2. Otros métodos
-
-
 
 \- `keys()`: solo claves.
 
 \- `values()`: solo valores. \
-
-
 
 ```python
 
@@ -422,23 +286,13 @@ for edad in edades.values():
 
 ```
 
-
-
-
-
 \### 6.3. Precaución al modificar
 
-
-
 Modificar el diccionario \*\*mientras lo recorres\*\* puede dar errores. \
-
-
 
 Patrón más seguro:
 
 \- Crear un \*\*nuevo diccionario\*\* con comprensión de diccionario. \
-
-
 
 ```python
 
@@ -446,27 +300,15 @@ edades\_mayores = {nombre: edad for nombre, edad in edades.items() if edad >= 25
 
 ```
 
-
-
-
-
 \## 7. Control avanzado de bucles
 
-
-
 \### 7.1. `break` y `continue`
-
-
 
 \- `break`: rompe el bucle completamente. \
 
 \- `continue`: salta al \*\*siguiente ciclo\*\*, sin ejecutar el resto del bloque. \
 
-
-
 Ejemplo con `break`:
-
-
 
 ```python
 
@@ -480,11 +322,7 @@ for n in range(10):
 
 ```
 
-
-
 Ejemplo con `continue`:
-
-
 
 ```python
 
@@ -498,17 +336,9 @@ for n in range(5):
 
 ```
 
-
-
-
-
 \### 7.2. Bucles anidados
 
-
-
 Un bucle dentro de otro. \
-
-
 
 ```python
 
@@ -520,23 +350,13 @@ for i in range(3):
 
 ```
 
-
-
 \- Útiles para trabajar con estructuras 2D.
 
 \- Cuidado con el rendimiento: crece muy rápido el número de iteraciones. \
 
-
-
-
-
 \### 7.3. `enumerate` y `zip`
 
-
-
 \- `enumerate(iterable)`: da \*\*índice\*\* y valor. \
-
-
 
 ```python
 
@@ -548,17 +368,13 @@ for indice, fruta in enumerate(frutas):
 
 ```
 
-
-
 \- `zip(lista1, lista2, ...)`: recorre varias colecciones al mismo tiempo. \
-
-
 
 ```python
 
 nombres = \["Ana", "Carlos", "María"]
 
-notas = 
+notas =
 
 
 
@@ -568,27 +384,15 @@ for nombre, nota in zip(nombres, notas):
 
 ```
 
-
-
-
-
 \## 8. Iteradores, generadores y comprensiones avanzadas
 
-
-
 \### 8.1. Iteradores y generadores
-
-
 
 \- Un \*\*iterador\*\* es un objeto que sabe devolver elementos uno a uno. \
 
 \- Un \*\*generador\*\* es una función especial que usa `yield` y produce valores bajo demanda, sin guardar toda la secuencia en memoria. \
 
-
-
 Mini–ejemplo:
-
-
 
 ```python
 
@@ -610,17 +414,9 @@ for numero in generador\_pares(10):
 
 ```
 
-
-
-
-
 \### 8.2. Comprensiones avanzadas
 
-
-
 No solo existen listas, también comprensiones de diccionarios y conjuntos. \
-
-
 
 ```python
 
@@ -628,27 +424,17 @@ No solo existen listas, también comprensiones de diccionarios y conjuntos. \
 
 nombres = \["Ana", "Carlos", "María"]
 
-notas = 
+notas =
 
 aprobados = {n: nota for n, nota in zip(nombres, notas) if nota >= 6}
 
 ```
 
-
-
-
-
 \## 9. Optimización y depuración de bucles
-
-
 
 \### 9.1. Optimización de bucles
 
-
-
 Buenas prácticas: \
-
-
 
 \- Minimizar operaciones costosas dentro del bucle.
 
@@ -658,17 +444,9 @@ Buenas prácticas: \
 
 \- Preferir comprensiones cuando mejoran legibilidad. \
 
-
-
-
-
 \### 9.2. Depuración de bucles
 
-
-
 Técnicas útiles: \
-
-
 
 \- Imprimir variables clave en algunas iteraciones.
 
@@ -676,21 +454,11 @@ Técnicas útiles: \
 
 \- Revisar cuidadosamente la \*\*condición de salida\*\* (sobre todo en `while`). \
 
-
-
-
-
 \## 10. Patrones comunes con bucles
-
-
 
 Patrones que aparecen todo el tiempo: \
 
-
-
 \- \*\*Acumulación\*\*: sumar o acumular resultados.
-
-
 
 ```python
 
@@ -702,11 +470,7 @@ for n in numeros:
 
 ```
 
-
-
 \- \*\*Filtrado\*\*: dejar solo los elementos que cumplen una condición.
-
-
 
 ```python
 
@@ -714,29 +478,15 @@ mayores = \[n for n in numeros if n > 10]
 
 ```
 
-
-
 \- \*\*Búsqueda\*\*: encontrar un elemento que cumpla cierta condición (a menudo con `break`). \
-
-
-
-
 
 \## 11. Ejercicio aplicado 1: recorriendo el inventario
 
-
-
 \### 11.1. Contexto
-
-
 
 Un almacén necesita revisar su inventario, detectar productos con \*\*stock bajo\*\* y generar una lista para reposición. \
 
-
-
 \### 11.2. Consigna (resumida)
-
-
 
 1\. Crear una lista de diccionarios con `nombre`, `stock`, `precio`.
 
@@ -748,37 +498,19 @@ Un almacén necesita revisar su inventario, detectar productos con \*\*stock baj
 
 5\. Usar un `while` para simular ingreso de productos hasta que el usuario escriba `"salir"`. \
 
-
-
-
-
 \### 11.3. Idea algorítmica
-
-
 
 \- Combina `for`, `while`, comprensiones, acumulación y validación de entrada.
 
 \- Es un ejemplo típico de uso real de bucles en un sistema sencillo. \
 
-
-
-
-
 \## 12. Ejercicio aplicado 2: análisis académico con bucles inteligentes
-
-
 
 \### 12.1. Contexto
 
-
-
 Una escuela quiere procesar datos de estudiantes: nombres, notas, aprobados, reprobados, promedios, etc. \
 
-
-
 \### 12.2. Consigna (resumida)
-
-
 
 1\. Crear listas `nombres` y `notas` con la misma cantidad de elementos.
 
@@ -792,31 +524,19 @@ Una escuela quiere procesar datos de estudiantes: nombres, notas, aprobados, rep
 
 6\. Mostrar resumen:
 
-&#x20;  - cantidad de aprobados
+&#x20; - cantidad de aprobados
 
-&#x20;  - promedio de notas
+&#x20; - promedio de notas
 
-&#x20;  - nombres en mayúsculas de estudiantes que deben rendir (nota < 6). \
-
-
-
-
+&#x20; - nombres en mayúsculas de estudiantes que deben rendir (nota < 6). \
 
 \### 12.3. Herramientas que integra
-
-
 
 \- `for`, `range`, `zip`, `enumerate`, `break`, comprensiones de listas. \
 
 \- Patrón ideal para practicar lógica de negocio con bucles. \
 
-
-
-
-
 \## 13. Conclusiones clave
-
-
 
 \- `while` es ideal cuando la \*\*repetición depende de una condición\*\* que puede cambiar (usuario, sensores, estados). \
 
@@ -825,4 +545,3 @@ Una escuela quiere procesar datos de estudiantes: nombres, notas, aprobados, rep
 \- Herramientas como `range`, comprensiones, `enumerate`, `zip`, `break`, `continue` permiten escribir bucles más claros, cortos y eficientes. \
 
 \- Dominar estos patrones es fundamental para resolver problemas reales y escribir código limpio y mantenible en Python. \
-
