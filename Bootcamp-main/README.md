@@ -245,6 +245,7 @@ Bootcamp/
 
 **Última actualización:** 28 de Abril de 2026
 
+```
 Bootcamp/
 │  └─ Leccion7/
 ├─ Modulo3/
