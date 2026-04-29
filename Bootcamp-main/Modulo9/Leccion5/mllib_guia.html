@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLlib & Spark — Guía de Estructuras y Conceptos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;600;800&family=Literata:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252a38;
+    --accent: #4f9cf9;
+    --accent2: #7ee8a2;
+    --accent3: #f9a84f;
+    --accent4: #e06cff;
+    --text: #d8dde8;
+    --text-muted: #6b7590;
+    --text-dim: #9099b0;
+    --code-bg: #0a0c12;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Literata', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 0 2.5rem;
+    background: linear-gradient(180deg, #0a0c12 0%, var(--bg) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(79,156,249,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -40px;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(126,232,162,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(79,156,249,0.1);
+    border: 1px solid rgba(79,156,249,0.25);
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    font-family: 'Literata', serif;
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    max-width: 560px;
+  }
+
+  /* ── NAV ── */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+  }
+  .toc-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .toc ol { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .toc a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: color 0.2s;
+  }
+  .toc a:hover { color: var(--accent); }
+  .toc .num {
+    color: var(--accent);
+    font-size: 0.7rem;
+    min-width: 1.4rem;
+  }
+
+  /* ── MAIN ── */
+  main { padding: 1rem 0 5rem; }
+
+  section { margin-bottom: 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: rgba(79,156,249,0.08);
+    border: 1px solid rgba(79,156,249,0.2);
+    padding: 0.3rem 0.55rem;
+    border-radius: 3px;
+    margin-top: 0.3rem;
+    white-space: nowrap;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #fff;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 2rem 0 0.9rem;
+  }
+
+  p { color: var(--text); margin-bottom: 1rem; }
+
+  /* ── CARDS GRID ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+  .card {
+    background: var(--surface);
+    padding: 1.25rem 1.4rem;
+    transition: background 0.2s;
+  }
+  .card:hover { background: var(--surface2); }
+  .card-icon {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .card-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .card-desc {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 0.75rem 1.2rem;
+    background: var(--surface);
+  }
+  td {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .mono { font-family: 'IBM Plex Mono', monospace; font-size: 0.83rem; color: var(--accent); }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-left: 3px solid var(--accent2);
+    background: rgba(126,232,162,0.05);
+    padding: 1rem 1.4rem;
+    border-radius: 0 4px 4px 0;
+    margin: 1.5rem 0;
+    font-size: 0.93rem;
+    color: var(--text-dim);
+  }
+  .callout strong { color: var(--accent2); font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; display: block; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .callout.orange { border-color: var(--accent3); background: rgba(249,168,79,0.05); }
+  .callout.orange strong { color: var(--accent3); }
+  .callout.purple { border-color: var(--accent4); background: rgba(224,108,255,0.05); }
+  .callout.purple strong { color: var(--accent4); }
+
+  /* ── CODE ── */
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    background: var(--code-bg);
+    padding: 0.15em 0.45em;
+    border-radius: 3px;
+    color: var(--accent);
+    border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: var(--text-dim);
+  }
+  pre code .kw { color: var(--accent4); }
+  pre code .fn { color: var(--accent); }
+  pre code .str { color: var(--accent2); }
+  pre code .cm { color: var(--text-muted); font-style: italic; }
+
+  /* ── PIPELINE ── */
+  .pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 1.75rem 0;
+    overflow-x: auto;
+  }
+  .pipe-step {
+    flex: 1;
+    min-width: 130px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1rem 0.9rem;
+    position: relative;
+    text-align: center;
+  }
+  .pipe-step:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    z-index: 1;
+    background: var(--bg);
+    padding: 0 2px;
+  }
+  .pipe-step:not(:first-child) { border-left: none; }
+  .pipe-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.35rem;
+  }
+  .pipe-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+  .pipe-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .pipe-step.highlight { background: rgba(79,156,249,0.07); border-color: rgba(79,156,249,0.3); }
+
+  /* ── ALGO GRID ── */
+  .algo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 580px) { .algo-grid { grid-template-columns: 1fr; } }
+
+  .algo-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .algo-group-header {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.7rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .algo-group-header.sup { background: rgba(126,232,162,0.06); color: var(--accent2); }
+  .algo-group-header.unsup { background: rgba(79,156,249,0.06); color: var(--accent); }
+
+  .algo-item {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .algo-item:last-child { border-bottom: none; }
+  .algo-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .algo-type {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+  .algo-example {
+    font-size: 0.78rem;
+    color: var(--accent3);
+    font-style: italic;
+  }
+
+  /* ── COMPARISON ── */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 580px) { .compare { grid-template-columns: 1fr; } }
+
+  .compare-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .compare-header {
+    padding: 0.75rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .dense-h { background: rgba(249,168,79,0.08); color: var(--accent3); }
+  .sparse-h { background: rgba(126,232,162,0.08); color: var(--accent2); }
+  .compare-body { padding: 1rem 1.2rem; }
+  .compare-body ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .compare-body li {
+    font-size: 0.87rem;
+    color: var(--text-dim);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .compare-body li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  /* ── WITHOUT/WITH ── */
+  .with-without {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 580px) { .with-without { grid-template-columns: 1fr; } }
+  .ww-col { padding: 1.25rem 1.4rem; }
+  .ww-col:first-child { border-right: 1px solid var(--border); background: rgba(224,108,255,0.03); }
+  .ww-col:last-child { background: rgba(126,232,162,0.03); }
+  .ww-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .ww-label.bad { color: #e06cff; }
+  .ww-label.good { color: var(--accent2); }
+  .ww-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    margin-bottom: 0.55rem;
+    font-size: 0.87rem;
+    color: var(--text-dim);
+  }
+  .ww-item .icon { font-size: 0.8rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 640px) {
+    .pipeline { flex-direction: column; }
+    .pipe-step:not(:last-child)::after { content: '↓'; right: auto; top: auto; bottom: -14px; left: 50%; transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="tag">Apache Spark · MLlib · Big Data ML</span>
+    <h1>Explorando <span>MLlib</span><br>y sus estructuras de datos</h1>
+    <p class="subtitle">Componentes clave, vectores, algoritmos y pipelines explicados desde la práctica hasta la producción.</p>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <p class="toc-title">Contenido</p>
+    <ol>
+      <li><a href="#s1"><span class="num">01</span> Componentes clave e integración con Spark</a></li>
+      <li><a href="#s2"><span class="num">02</span> DenseVector vs SparseVector</a></li>
+      <li><a href="#s3"><span class="num">03</span> Algoritmos en MLlib</a></li>
+      <li><a href="#s4"><span class="num">04</span> Pipeline: del notebook a producción</a></li>
+    </ol>
+  </nav>
+
+  <!-- SECCIÓN 1 -->
+  <section id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Componentes clave e integración con Spark</h2>
+    </div>
+
+    <p>Lo primero que hay que entender de MLlib es que <strong>no vive solo</strong>: es parte del ecosistema de Apache Spark. Eso cambia bastante cómo uno lo piensa y lo usa.</p>
+
+    <h3>Componentes principales</h3>
+    <div class="cards">
+      <div class="card">
+        <span class="card-icon">🗂️</span>
+        <div class="card-title">DataFrame</div>
+        <p class="card-desc">La base de todo. MLlib no opera sobre listas o arrays, sino sobre DataFrames distribuidos de Spark SQL.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔄</span>
+        <div class="card-title">Transformer</div>
+        <p class="card-desc">Transforma datos: normalizar, tokenizar, convertir texto a vectores numéricos.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🧠</span>
+        <div class="card-title">Estimator</div>
+        <p class="card-desc">Los algoritmos de ML. Reciben datos, aprenden, y devuelven un <code>Model</code> entrenado.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">📦</span>
+        <div class="card-title">Model</div>
+        <p class="card-desc">El resultado de entrenar un Estimator. Se usa para hacer predicciones sobre datos nuevos.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⛓️</span>
+        <div class="card-title">Pipeline</div>
+        <p class="card-desc">Encadena todo el flujo: preparación → entrenamiento → predicción, como una sola unidad ejecutable.</p>
+      </div>
+    </div>
+
+    <h3>¿Cómo se integra con Spark?</h3>
+    <p>Una idea que suele pasarse por alto: MLlib no es una librería externa que se conecta a Spark. <strong>Es parte de Spark</strong>. Eso implica:</p>
+
+    <div class="callout">
+      <strong>Consecuencia práctica</strong>
+      Escala automáticamente en clústeres, usa el mismo motor de ejecución (Catalyst + Tungsten) y opera sobre datos distribuidos sin requerir código adicional de paralelismo.
+    </div>
+
+    <p>Entrenar un modelo en MLlib se parece más a escribir un <code>.groupBy()</code> que a llamar un <code>model.fit()</code> de scikit-learn. El contexto de ejecución ya está resuelto.</p>
+  </section>
+
+  <!-- SECCIÓN 2 -->
+  <section id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>DenseVector vs SparseVector</h2>
+    </div>
+
+    <p>Parece un detalle técnico, pero en realidad es una <strong>decisión de memoria y rendimiento</strong> con impacto real a escala.</p>
+
+    <h3>Diferencia conceptual</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>¿Qué almacena?</th>
+            <th>Representación interna</th>
+            <th>Ejemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="mono">DenseVector</span></td>
+            <td>Todos los valores, incluyendo ceros</td>
+            <td>Array completo</td>
+            <td><code>[1.0, 0.0, 0.0, 5.0]</code></td>
+          </tr>
+          <tr>
+            <td><span class="mono">SparseVector</span></td>
+            <td>Solo los valores distintos de cero</td>
+            <td>Índices + valores</td>
+            <td><code>(4, [0, 3], [1.0, 5.0])</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>¿Cuándo usar cada uno?</h3>
+    <div class="compare">
+      <div class="compare-card">
+        <div class="compare-header dense-h">DenseVector</div>
+        <div class="compare-body">
+          <ul>
+            <li>Pocos datos o pocas dimensiones</li>
+            <li>Baja proporción de ceros</li>
+            <li>Variables numéricas continuas (edad, ingreso, temperatura)</li>
+            <li>Cuando la simplicidad importa más que la memoria</li>
+          </ul>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-header sparse-h">SparseVector</div>
+        <div class="compare-body">
+          <ul>
+            <li>Alta dimensionalidad con muchos ceros</li>
+            <li>Datos textuales (TF-IDF, bag of words)</li>
+            <li>One-hot encoding de categorías</li>
+            <li>Sistemas de recomendación (usuarios × ítems)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout orange">
+      <strong>Ejemplo real</strong>
+      Un corpus con 10.000 palabras únicas, donde cada documento usa ~20. Guardar 9.980 ceros por documento es ineficiente. SparseVector almacena solo los índices y valores de esas 20 palabras relevantes: misma información, fracción del espacio.
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3 -->
+  <section id="s3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Algoritmos en MLlib</h2>
+    </div>
+
+    <p>MLlib no pretende competir con scikit-learn en variedad de algoritmos. Su apuesta es diferente: <strong>lo necesario para producción a escala</strong>.</p>
+
+    <div class="algo-grid">
+      <div class="algo-group">
+        <div class="algo-group-header sup">Supervisados</div>
+        <div class="algo-item">
+          <div class="algo-name">Logistic Regression</div>
+          <div class="algo-type">Clasificación binaria / multiclase</div>
+          <div class="algo-example">→ Churn: ¿el cliente se va o no?</div>
+        </div>
+        <div class="algo-item">
+          <div class="algo-name">Random Forest</div>
+          <div class="algo-type">Ensamble de árboles de decisión</div>
+          <div class="algo-example">→ Scoring y ranking de clientes</div>
+        </div>
+        <div class="algo-item">
+          <div class="algo-name">Linear Regression</div>
+          <div class="algo-type">Predicción de valores continuos</div>
+          <div class="algo-example">→ Precio de propiedades</div>
+        </div>
+        <div class="algo-item">
+          <div class="algo-name">GBTClassifier</div>
+          <div class="algo-type">Gradient Boosted Trees</div>
+          <div class="algo-example">→ Detección de fraude</div>
+        </div>
+      </div>
+      <div class="algo-group">
+        <div class="algo-group-header unsup">No supervisados</div>
+        <div class="algo-item">
+          <div class="algo-name">K-Means</div>
+          <div class="algo-type">Clustering por centroides</div>
+          <div class="algo-example">→ Segmentación de clientes</div>
+        </div>
+        <div class="algo-item">
+          <div class="algo-name">ALS</div>
+          <div class="algo-type">Filtrado colaborativo</div>
+          <div class="algo-example">→ Recomendación (Netflix-style)</div>
+        </div>
+        <div class="algo-item">
+          <div class="algo-name">LDA</div>
+          <div class="algo-type">Latent Dirichlet Allocation</div>
+          <div class="algo-example">→ Modelado de tópicos en texto</div>
+        </div>
+        <div class="algo-item">
+          <div class="algo-name">Bisecting K-Means</div>
+          <div class="algo-type">Clustering jerárquico divisivo</div>
+          <div class="algo-example">→ Categorización de documentos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Perspectiva clave</strong>
+      MLlib no compite con scikit-learn en variedad. Compite en volumen: los mismos algoritmos corriendo sobre terabytes de datos distribuidos, sin cambiar la API.
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4 -->
+  <section id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Pipeline: del notebook a producción</h2>
+    </div>
+
+    <p>El Pipeline es probablemente el concepto más subestimado de MLlib. No es solo una forma de ordenar código; es <strong>la diferencia entre un experimento y algo que funciona en producción</strong>.</p>
+
+    <h3>Estructura de un pipeline típico</h3>
+    <div class="pipeline">
+      <div class="pipe-step">
+        <div class="pipe-num">Paso 1</div>
+        <div class="pipe-name">StringIndexer</div>
+        <div class="pipe-desc">Categorías → índices numéricos</div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">Paso 2</div>
+        <div class="pipe-name">VectorAssembler</div>
+        <div class="pipe-desc">Columnas → vector único de features</div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">Paso 3</div>
+        <div class="pipe-name">StandardScaler</div>
+        <div class="pipe-desc">Normaliza la escala de las variables</div>
+      </div>
+      <div class="pipe-step highlight">
+        <div class="pipe-num">Paso 4</div>
+        <div class="pipe-name">LogisticRegression</div>
+        <div class="pipe-desc">Entrena el modelo final</div>
+      </div>
+    </div>
+
+    <h3>Sin Pipeline vs Con Pipeline</h3>
+    <div class="with-without">
+      <div class="ww-col">
+        <div class="ww-label bad">✗ Sin Pipeline</div>
+        <div class="ww-item"><span class="icon">⚠️</span> Código disperso, difícil de seguir</div>
+        <div class="ww-item"><span class="icon">⚠️</span> Transformaciones manuales en cada predicción</div>
+        <div class="ww-item"><span class="icon">⚠️</span> Inconsistencias entre entrenamiento e inferencia</div>
+        <div class="ww-item"><span class="icon">⚠️</span> Difícil de versionar y reproducir</div>
+      </div>
+      <div class="ww-col">
+        <div class="ww-label good">✓ Con Pipeline</div>
+        <div class="ww-item"><span class="icon">✅</span> Flujo lineal y legible</div>
+        <div class="ww-item"><span class="icon">✅</span> Una sola llamada <code>.transform()</code> en producción</div>
+        <div class="ww-item"><span class="icon">✅</span> Garantiza que los datos pasan por los mismos pasos</div>
+        <div class="ww-item"><span class="icon">✅</span> Serializable: se guarda y recarga completo</div>
+      </div>
+    </div>
+
+    <h3>Código de referencia</h3>
+    <pre><code><span class="kw">from</span> pyspark.ml <span class="kw">import</span> Pipeline
+<span class="kw">from</span> pyspark.ml.feature <span class="kw">import</span> StringIndexer, VectorAssembler, StandardScaler
+<span class="kw">from</span> pyspark.ml.classification <span class="kw">import</span> LogisticRegression
+
+<span class="cm"># 1. Definir pasos del pipeline</span>
+indexer   = <span class="fn">StringIndexer</span>(inputCol=<span class="str">"categoria"</span>, outputCol=<span class="str">"categoria_idx"</span>)
+assembler = <span class="fn">VectorAssembler</span>(inputCols=[<span class="str">"edad"</span>, <span class="str">"ingreso"</span>, <span class="str">"categoria_idx"</span>],
+                              outputCol=<span class="str">"features"</span>)
+scaler    = <span class="fn">StandardScaler</span>(inputCol=<span class="str">"features"</span>, outputCol=<span class="str">"features_scaled"</span>)
+lr        = <span class="fn">LogisticRegression</span>(featuresCol=<span class="str">"features_scaled"</span>, labelCol=<span class="str">"churn"</span>)
+
+<span class="cm"># 2. Ensamblar y entrenar</span>
+pipeline       = <span class="fn">Pipeline</span>(stages=[indexer, assembler, scaler, lr])
+pipeline_model = pipeline.<span class="fn">fit</span>(train_df)
+
+<span class="cm"># 3. Predecir (aplica todos los pasos automáticamente)</span>
+predicciones = pipeline_model.<span class="fn">transform</span>(test_df)
+
+<span class="cm"># 4. Guardar para producción</span>
+pipeline_model.<span class="fn">save</span>(<span class="str">"/modelos/churn_pipeline_v1"</span>)</code></pre>
+
+    <div class="callout purple">
+      <strong>Reflexión clave</strong>
+      El pipeline no es solo orden. Es lo que permite pasar de "tengo un modelo en un notebook" a "tengo algo que puedo ejecutar en producción sin romper todo". La serialización del pipeline garantiza que los datos de inferencia pasan exactamente por los mismos pasos que los de entrenamiento.
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section>
+    <div class="section-header">
+      <span class="section-num">→</span>
+      <h2>Resumen conceptual</h2>
+    </div>
+
+    <p>Cuando estas piezas se acomodan en la cabeza, MLlib deja de parecer complejo:</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-title">DataFrame</div>
+        <p class="card-desc">La base: datos distribuidos como punto de partida y llegada.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Vectores</div>
+        <p class="card-desc">La representación: Dense para datos densos, Sparse para alta dimensionalidad.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Estimators</div>
+        <p class="card-desc">Los algoritmos: aprenden de datos y producen modelos.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Pipeline</div>
+        <p class="card-desc">El orquestador: garantiza reproducibilidad de extremo a extremo.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Cambio de perspectiva</strong>
+      Una vez que entiendes estas piezas, ya no estás simplemente entrenando modelos. Estás diseñando procesos de datos escalables y reproducibles. Esa es la diferencia real entre MLlib y una librería de ML convencional.
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    Apache Spark · MLlib · Guía de referencia
+  </div>
+</footer>
+
+</body>
+</html>
