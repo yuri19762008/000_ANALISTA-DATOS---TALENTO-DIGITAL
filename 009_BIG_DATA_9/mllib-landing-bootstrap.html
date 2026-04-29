@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MLlib Escalable · Landing Interactiva</title>
+  <meta name="description" content="Landing profesional sobre Apache Spark MLlib: conceptos, estructuras, algoritmos, pipelines y ejemplos PySpark.">
+  <meta name="color-scheme" content="dark light">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1217;
+      --bg-soft:#151a21;
+      --panel:#1b212b;
+      --panel-2:#202836;
+      --text:#eef3f8;
+      --muted:#a8b4c3;
+      --line:rgba(255,255,255,.08);
+      --brand:#26c6da;
+      --brand-2:#84fab0;
+      --brand-3:#7c8cff;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:24px;
+    }
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Inter',system-ui,sans-serif;
+      background:radial-gradient(circle at top right, rgba(38,198,218,.14), transparent 30%), radial-gradient(circle at bottom left, rgba(124,140,255,.14), transparent 28%), var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    .serif{font-family:'Instrument Serif', serif}
+    .navbar{backdrop-filter: blur(14px); background:rgba(15,18,23,.72)!important; border-bottom:1px solid var(--line)}
+    .navbar-brand{font-weight:800; letter-spacing:.02em}
+    .nav-link{color:var(--muted)!important}
+    .nav-link:hover,.nav-link.active{color:var(--text)!important}
+    .hero, .screen-section{min-height:100vh; display:flex; align-items:center; position:relative}
+    .eyebrow{letter-spacing:.18em; text-transform:uppercase; font-size:.78rem; color:var(--brand-2); font-weight:700}
+    .hero-title{font-size:clamp(3rem,8vw,6.5rem); line-height:.95; letter-spacing:-.04em}
+    .hero-copy{font-size:1.12rem; color:var(--muted); max-width:62ch}
+    .gradient-text{background:linear-gradient(135deg,var(--brand-2),var(--brand),#d7f9ff); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),#2dd4bf); border:none; color:#081014; font-weight:700}
+    .btn-outline-light{border-color:var(--line)}
+    .glass, .stat-card, .feature-card, .code-card, .timeline-card, .table-wrap{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+    }
+    .metric{font-size:clamp(2rem,4vw,3.5rem); font-weight:800; line-height:1}
+    .muted{color:var(--muted)}
+    .section-title{font-size:clamp(2.1rem,4vw,4rem); line-height:1; letter-spacing:-.03em}
+    .feature-card,.stat-card,.timeline-card,.code-card{padding:1.4rem; height:100%}
+    .feature-card:hover,.stat-card:hover,.timeline-card:hover{transform:translateY(-6px); transition:.35s ease}
+    .orb{position:absolute; border-radius:50%; filter:blur(60px); opacity:.34; pointer-events:none}
+    .orb.a{width:280px;height:280px;background:rgba(38,198,218,.28); top:12%; right:8%}
+    .orb.b{width:220px;height:220px;background:rgba(132,250,176,.16); bottom:12%; left:8%}
+    .reveal{opacity:0; transform:translateY(28px); transition:all .8s cubic-bezier(.16,1,.3,1)}
+    .reveal.in{opacity:1; transform:none}
+    .code-card pre{margin:0; background:#0b0f14; color:#dff7ff; border-radius:18px; padding:1.1rem; overflow:auto; border:1px solid rgba(255,255,255,.06)}
+    .code-label{display:inline-flex; gap:.5rem; align-items:center; padding:.45rem .8rem; border-radius:999px; background:rgba(38,198,218,.12); color:#c9fbff; font-size:.84rem; font-weight:700}
+    .pipeline-step{position:relative; padding:1rem 1rem 1rem 1.25rem; border-left:2px solid rgba(38,198,218,.45)}
+    .pipeline-step::before{content:''; position:absolute; left:-7px; top:1.2rem; width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:0 0 0 6px rgba(38,198,218,.12)}
+    .table thead th{color:#dffaff; border-bottom-color:var(--line)}
+    .table tbody td{color:#dce6ef; border-bottom-color:rgba(255,255,255,.05)}
+    .table-responsive{border-radius:18px}
+    .mini-tag{display:inline-block; padding:.35rem .65rem; border-radius:999px; border:1px solid var(--line); color:#d5e2ee; font-size:.82rem}
+    .full-slide-panel{padding:2rem}
+    .footer-note{color:var(--muted); font-size:.95rem}
+    @media (max-width: 991.98px){
+      .hero,.screen-section{min-height:auto; padding:7rem 0 5rem}
+      .hero-title{font-size:clamp(2.6rem,12vw,4.6rem)}
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand text-white" href="#inicio">MLlib Escalable</a>
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Abrir navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#mllib">MLlib</a></li>
+          <li class="nav-item"><a class="nav-link" href="#estructuras">Estructuras</a></li>
+          <li class="nav-item"><a class="nav-link" href="#algoritmos">Algoritmos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pipeline">Pipeline</a></li>
+          <li class="nav-item"><a class="nav-link" href="#codigo">PySpark</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section id="inicio" class="hero overflow-hidden">
+      <div class="orb a"></div>
+      <div class="orb b"></div>
+      <div class="container position-relative">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <div class="eyebrow reveal">Machine Learning distribuido con Apache Spark</div>
+            <h1 class="hero-title serif reveal">Una <span class="gradient-text">presentación web</span> de MLlib más clara, visual y profesional</h1>
+            <p class="hero-copy mt-4 reveal">Esta landing resume qué es MLlib, por qué escala mejor que enfoques tradicionales, qué estructuras usa, qué algoritmos soporta y cómo se construye un flujo completo en PySpark desde los datos hasta la evaluación.</p>
+            <div class="d-flex flex-wrap gap-3 mt-4 reveal">
+              <a href="#codigo" class="btn btn-primary btn-lg px-4 py-3">Ver ejemplo PySpark</a>
+              <a href="#pipeline" class="btn btn-outline-light btn-lg px-4 py-3">Explorar pipeline</a>
+            </div>
+            <div class="d-flex flex-wrap gap-2 mt-4 reveal">
+              <span class="mini-tag">Spark SQL</span>
+              <span class="mini-tag">DataFrames</span>
+              <span class="mini-tag">Pipelines</span>
+              <span class="mini-tag">K-Means</span>
+              <span class="mini-tag">PCA</span>
+              <span class="mini-tag">Evaluación</span>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="glass p-4 p-lg-5 reveal full-slide-panel">
+              <div class="row g-3">
+                <div class="col-6">
+                  <div class="stat-card">
+                    <div class="muted small mb-2">Enfoque central</div>
+                    <div class="metric">MLlib</div>
+                    <div class="muted mt-2">Biblioteca de machine learning de Apache Spark</div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="stat-card">
+                    <div class="muted small mb-2">Problema que resuelve</div>
+                    <div class="metric">Big Data</div>
+                    <div class="muted mt-2">Entrenamiento y predicción a escala distribuida</div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="timeline-card">
+                    <div class="code-label mb-3">Ruta de trabajo</div>
+                    <div class="pipeline-step">Preparación de datos con DataFrames y transformadores</div>
+                    <div class="pipeline-step">Entrenamiento con algoritmos supervisados o no supervisados</div>
+                    <div class="pipeline-step">Predicción, evaluación y optimización reproducible</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mllib" class="screen-section">
+      <div class="container">
+        <div class="row g-4 align-items-end mb-5">
+          <div class="col-lg-7">
+            <div class="eyebrow reveal">Fundamento conceptual</div>
+            <h2 class="section-title serif reveal">¿Qué es MLlib y por qué importa?</h2>
+          </div>
+          <div class="col-lg-5">
+            <p class="muted reveal">MLlib es la biblioteca de machine learning de Apache Spark y está pensada para construir, entrenar y evaluar modelos de forma distribuida, integrada con Spark SQL y otros componentes del ecosistema. </p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-3 reveal"><div class="feature-card"><h3 class="h4 mb-3">Escalabilidad horizontal</h3><p class="muted mb-0">Procesa datasets que superan la memoria de una sola máquina y distribuye el trabajo en clústeres.</p></div></div>
+          <div class="col-md-6 col-xl-3 reveal"><div class="feature-card"><h3 class="h4 mb-3">Integración nativa</h3><p class="muted mb-0">Convive con Spark SQL, Streaming y el flujo completo de datos sin salir del ecosistema Spark.</p></div></div>
+          <div class="col-md-6 col-xl-3 reveal"><div class="feature-card"><h3 class="h4 mb-3">API moderna</h3><p class="muted mb-0">La evolución desde RDD hacia DataFrames mejoró rendimiento, expresividad y facilidad de uso.</p></div></div>
+          <div class="col-md-6 col-xl-3 reveal"><div class="feature-card"><h3 class="h4 mb-3">Uso práctico</h3><p class="muted mb-0">Incluye clasificación, regresión, clustering, reducción de dimensionalidad y evaluación.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="estructuras" class="screen-section">
+      <div class="container">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-5">
+            <div class="eyebrow reveal">Base del modelado</div>
+            <h2 class="section-title serif reveal">Estructuras de datos clave</h2>
+            <p class="muted mt-3 reveal">En MLlib, los DataFrames organizan los datos de entrada y salida, mientras que los vectores y matrices permiten representar características numéricas de manera eficiente.</p>
+          </div>
+          <div class="col-lg-7 reveal">
+            <div class="table-wrap p-3 p-md-4">
+              <div class="table-responsive">
+                <table class="table table-dark table-borderless align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>Estructura</th>
+                      <th>Uso principal</th>
+                      <th>Idea clave</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>DataFrame</strong></td>
+                      <td>Entrada, transformación y salida</td>
+                      <td>Tabla distribuida por columnas, base de la API moderna</td>
+                    </tr>
+                    <tr>
+                      <td><strong>DenseVector</strong></td>
+                      <td>Features numéricas con muchos valores no nulos</td>
+                      <td>Guarda todos los valores del vector</td>
+                    </tr>
+                    <tr>
+                      <td><strong>SparseVector</strong></td>
+                      <td>Datos con muchos ceros</td>
+                      <td>Guarda solo índices y valores no nulos para ahorrar memoria</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Matriz</strong></td>
+                      <td>PCA, SVD y factorización</td>
+                      <td>Representación bidimensional para operaciones avanzadas</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Pipeline</strong></td>
+                      <td>Encadenamiento de etapas</td>
+                      <td>Hace reproducible y ordenado el flujo de ML</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="algoritmos" class="screen-section">
+      <div class="container">
+        <div class="row g-4 align-items-end mb-5">
+          <div class="col-lg-7">
+            <div class="eyebrow reveal">Catálogo soportado</div>
+            <h2 class="section-title serif reveal">Algoritmos que aparecen en la ruta del módulo</h2>
+          </div>
+          <div class="col-lg-5">
+            <p class="muted reveal">La guía trabaja con clasificación, regresión, clustering y reducción de dimensionalidad, siempre pensados para ejecutarse sobre datos distribuidos.</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-6 reveal">
+            <div class="feature-card h-100">
+              <div class="code-label mb-3">Supervisados</div>
+              <ul class="mb-0 muted">
+                <li>Regresión logística para clasificación binaria y multiclase</li>
+                <li>Árboles de decisión, Random Forest y Gradient-Boosted Trees</li>
+                <li>Regresión lineal y regresores basados en árboles</li>
+                <li>Naive Bayes y SVM para escenarios de clasificación</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6 reveal">
+            <div class="feature-card h-100">
+              <div class="code-label mb-3">No supervisados</div>
+              <ul class="mb-0 muted">
+                <li>K-Means, Gaussian Mixture Model y Bisecting K-Means</li>
+                <li>PCA y SVD para reducción de dimensionalidad</li>
+                <li>ALS para filtrado colaborativo y recomendación</li>
+                <li>Power Iteration Clustering para agrupamiento basado en grafos</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pipeline" class="screen-section">
+      <div class="container">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-6">
+            <div class="eyebrow reveal">Flujo reproducible</div>
+            <h2 class="section-title serif reveal">Cómo se arma un pipeline en MLlib</h2>
+            <p class="muted mt-3 reveal">El material explica que un pipeline encadena transformadores y estimadores. Así, la preparación, el entrenamiento, la predicción y la evaluación quedan en una misma secuencia lógica y repetible.</p>
+          </div>
+          <div class="col-lg-6">
+            <div class="glass p-4 p-lg-5 reveal">
+              <div class="pipeline-step"><strong>1. Ingesta y limpieza</strong><div class="muted">DataFrame con columnas de entrada bien definidas.</div></div>
+              <div class="pipeline-step"><strong>2. Ingeniería de variables</strong><div class="muted">StringIndexer, OneHotEncoder, VectorAssembler, escalado o normalización.</div></div>
+              <div class="pipeline-step"><strong>3. Modelo</strong><div class="muted">Estimator como LogisticRegression, LinearRegression o KMeans.</div></div>
+              <div class="pipeline-step"><strong>4. Predicción</strong><div class="muted">El modelo entrenado actúa como Transformer sobre nuevos datos.</div></div>
+              <div class="pipeline-step"><strong>5. Evaluación</strong><div class="muted">Métricas como F1, AUC, RMSE o MAE según el problema.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="codigo" class="screen-section">
+      <div class="container">
+        <div class="row g-4 align-items-end mb-5">
+          <div class="col-lg-7">
+            <div class="eyebrow reveal">PySpark aplicado</div>
+            <h2 class="section-title serif reveal">Ejemplos visuales de código</h2>
+          </div>
+          <div class="col-lg-5">
+            <p class="muted reveal">Aquí se agregó una sección más práctica para estudiar: un ejemplo supervisado con regresión logística y un ejemplo no supervisado con K-Means y PCA.</p>
+          </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-xl-6 reveal">
+            <div class="code-card h-100">
+              <div class="code-label mb-3">Ejemplo 1 · Clasificación con LogisticRegression</div>
+<pre><code>from pyspark.sql import SparkSession
+from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml import Pipeline
+from pyspark.ml.evaluation import BinaryClassificationEvaluator
+
+spark = SparkSession.builder.appName("demo-mllib").getOrCreate()
+
+df = spark.createDataFrame([
+    (0, 18.0, 1.0, 0.0),
+    (1, 35.0, 4.0, 1.0),
+    (2, 47.0, 7.0, 1.0),
+    (3, 23.0, 2.0, 0.0)
+], ["id", "edad", "compras", "label"])
+
+assembler = VectorAssembler(
+    inputCols=["edad", "compras"],
+    outputCol="features"
+)
+
+lr = LogisticRegression(
+    featuresCol="features",
+    labelCol="label",
+    maxIter=10,
+    regParam=0.01
+)
+
+pipeline = Pipeline(stages=[assembler, lr])
+model = pipeline.fit(df)
+pred = model.transform(df)
+
+evaluator = BinaryClassificationEvaluator(labelCol="label")
+auc = evaluator.evaluate(pred)</code></pre>
+            </div>
+          </div>
+          <div class="col-xl-6 reveal">
+            <div class="code-card h-100">
+              <div class="code-label mb-3">Qué está pasando en este flujo</div>
+              <div class="pipeline-step">Se crea una <strong>SparkSession</strong> para trabajar con MLlib desde PySpark.</div>
+              <div class="pipeline-step">Las columnas numéricas se unen en <strong>features</strong> con <strong>VectorAssembler</strong>.</div>
+              <div class="pipeline-step">Se define un modelo de <strong>LogisticRegression</strong> para clasificación.</div>
+              <div class="pipeline-step">Todo se organiza en un <strong>Pipeline</strong>, que luego se ajusta con <strong>fit()</strong>.</div>
+              <div class="pipeline-step">Finalmente, las predicciones se evalúan con un <strong>BinaryClassificationEvaluator</strong>.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-xl-6 reveal">
+            <div class="code-card h-100">
+              <div class="code-label mb-3">Ejemplo 2 · K-Means + PCA</div>
+<pre><code>from pyspark.ml.clustering import KMeans
+from pyspark.ml.feature import VectorAssembler, PCA
+from pyspark.ml import Pipeline
+
+ventas = spark.createDataFrame([
+    (1, 120.0, 15.0, 2.0),
+    (2, 130.0, 18.0, 3.0),
+    (3, 400.0, 55.0, 8.0),
+    (4, 390.0, 52.0, 7.0)
+], ["id", "monto", "frecuencia", "devoluciones"])
+
+assembler = VectorAssembler(
+    inputCols=["monto", "frecuencia", "devoluciones"],
+    outputCol="features"
+)
+
+pca = PCA(k=2, inputCol="features", outputCol="pca_features")
+
+kmeans = KMeans(
+    k=2,
+    seed=42,
+    featuresCol="pca_features",
+    predictionCol="cluster"
+)
+
+pipeline = Pipeline(stages=[assembler, pca, kmeans])
+modelo = pipeline.fit(ventas)
+resultado = modelo.transform(ventas)
+resultado.select("id", "pca_features", "cluster").show()</code></pre>
+            </div>
+          </div>
+          <div class="col-xl-6 reveal">
+            <div class="code-card h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="code-label mb-3">Interpretación visual</div>
+                <div class="row g-3">
+                  <div class="col-sm-6"><div class="stat-card text-center"><div class="metric">3</div><div class="muted mt-2">variables originales</div></div></div>
+                  <div class="col-sm-6"><div class="stat-card text-center"><div class="metric">2</div><div class="muted mt-2">componentes PCA</div></div></div>
+                  <div class="col-sm-6"><div class="stat-card text-center"><div class="metric">2</div><div class="muted mt-2">clusters buscados</div></div></div>
+                  <div class="col-sm-6"><div class="stat-card text-center"><div class="metric">1</div><div class="muted mt-2">pipeline reproducible</div></div></div>
+                </div>
+              </div>
+              <p class="muted mt-4 mb-0">Primero se ensamblan variables, luego PCA reduce dimensionalidad y finalmente K-Means agrupa observaciones parecidas. Esta secuencia representa muy bien el enfoque modular de MLlib.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen-section">
+      <div class="container">
+        <div class="glass p-4 p-md-5 reveal text-center">
+          <div class="eyebrow">Cierre</div>
+          <h2 class="section-title serif mt-2">De una presentación estática a una experiencia web más clara</h2>
+          <p class="hero-copy mx-auto mt-3">Esta versión combina estilo de landing, bloques tipo diapositiva, navegación fluida y ejemplos de PySpark para que puedas estudiar y también exponer el contenido con una presencia más profesional.</p>
+          <p class="footer-note mt-4 mb-0">Sugerencia siguiente: convertir esta misma landing a modo carrusel full-screen o agregar diagramas interactivos de Spark y MLlib.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('in'); } });
+    },{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    const sections = document.querySelectorAll('section[id]');
+    const links = document.querySelectorAll('.nav-link');
+    const spy = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          links.forEach(link=>link.classList.toggle('active', link.getAttribute('href') === '#'+entry.target.id));
+        }
+      });
+    },{threshold:.5});
+    sections.forEach(section=>spy.observe(section));
+  </script>
+</body>
+</html>
