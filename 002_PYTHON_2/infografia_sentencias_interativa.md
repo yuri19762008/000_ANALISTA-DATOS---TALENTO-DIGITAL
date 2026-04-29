@@ -6,7 +6,7 @@
 
 
 
-Las \*\*sentencias iterativas\*\* permiten repetir un bloque de código varias veces, de forma automática, sin escribir las mismas instrucciones una y otra vez. \[file:4]
+Las \*\*sentencias iterativas\*\* permiten repetir un bloque de código varias veces, de forma automática, sin escribir las mismas instrucciones una y otra vez. \
 
 
 
@@ -16,19 +16,19 @@ Se usan especialmente cuando:
 
 \- Necesitas aplicar la misma operación a una \*\*colección\*\* (lista, diccionario, etc.).
 
-\- Quieres \*\*automatizar tareas repetitivas\*\* y evitar errores humanos. \[file:4]
+\- Quieres \*\*automatizar tareas repetitivas\*\* y evitar errores humanos. \
 
 
 
 \*\*Ventajas principales:\*\*
 
-\- Eficiencia: menos líneas, más trabajo automatizado. \[file:4]
+\- Eficiencia: menos líneas, más trabajo automatizado. \
 
-\- Mantenimiento: el código es más claro y fácil de modificar. \[file:4]
+\- Mantenimiento: el código es más claro y fácil de modificar. \
 
-\- Flexibilidad: se adapta a muchos escenarios distintos. \[file:4]
+\- Flexibilidad: se adapta a muchos escenarios distintos. \
 
-\- Optimización: permite construir algoritmos más complejos de forma simple. \[file:4]
+\- Optimización: permite construir algoritmos más complejos de forma simple. \
 
 
 
@@ -38,7 +38,7 @@ Se usan especialmente cuando:
 
 
 
-Python ofrece tres pilares básicos para iterar: `while`, `for` y `range`. \[file:4]
+Python ofrece tres pilares básicos para iterar: `while`, `for` y `range`. \
 
 
 
@@ -46,7 +46,7 @@ Python ofrece tres pilares básicos para iterar: `while`, `for` y `range`. \[fil
 
 \- \*\*`for`\*\*: recorre elementos de una colección o secuencia.
 
-\- \*\*`range`\*\*: genera secuencias numéricas para controlar iteraciones. \[file:4]
+\- \*\*`range`\*\*: genera secuencias numéricas para controlar iteraciones. \
 
 
 
@@ -54,7 +54,7 @@ Idea clave:
 
 \- Usa `while` cuando depende de una \*\*condición lógica\*\*.
 
-\- Usa `for` cuando repites sobre una \*\*colección\*\* o un \*\*rango conocido\*\* de valores. \[file:4]
+\- Usa `for` cuando repites sobre una \*\*colección\*\* o un \*\*rango conocido\*\* de valores. \
 
 
 
@@ -68,13 +68,13 @@ Idea clave:
 
 
 
-`while` ejecuta un bloque de código \*\*mientras se cumpla una condición\*\*. \[file:4]
+`while` ejecuta un bloque de código \*\*mientras se cumpla una condición\*\*. \
 
 
 
 \- Es útil cuando \*\*no sabes\*\* cuántas veces vas a repetir.
 
-\- La repetición termina cuando la condición deja de ser verdadera. \[file:4]
+\- La repetición termina cuando la condición deja de ser verdadera. \
 
 
 
@@ -94,7 +94,7 @@ while condicion:
 
 
 
-Ejemplo: contar hasta 5. \[file:4]
+Ejemplo: contar hasta 5. \
 
 
 
@@ -118,7 +118,7 @@ Interpretación:
 
 \- Mientras `contador <= 5`, imprimes y sumas 1.
 
-\- Cuando llega a 6, la condición ya no se cumple y el bucle termina. \[file:4]
+\- Cuando llega a 6, la condición ya no se cumple y el bucle termina. \
 
 
 
@@ -128,7 +128,7 @@ Interpretación:
 
 
 
-Si \*\*no actualizas\*\* la variable de control, el bucle puede ser \*\*infinito\*\*. \[file:4]
+Si \*\*no actualizas\*\* la variable de control, el bucle puede ser \*\*infinito\*\*. \
 
 
 
@@ -152,7 +152,7 @@ while contador <= 5:
 
 \- La condición nunca cambia, el bucle nunca termina.
 
-\- Por eso, siempre hay que revisar la \*\*condición de salida\*\*. \[file:4]
+\- Por eso, siempre hay que revisar la \*\*condición de salida\*\*. \
 
 
 
@@ -166,7 +166,7 @@ while contador <= 5:
 
 \- Monitorear un proceso hasta que cambie de estado.
 
-\- Repetir una acción “hasta que pase algo”. \[file:4]
+\- Repetir una acción “hasta que pase algo”. \
 
 
 
@@ -198,11 +198,11 @@ while numero <= 0:
 
 
 
-`for` recorre los elementos de una \*\*colección\*\* (lista, tupla, diccionario, etc.) o una \*\*secuencia\*\*, uno por uno. \[file:4]
+`for` recorre los elementos de una \*\*colección\*\* (lista, tupla, diccionario, etc.) o una \*\*secuencia\*\*, uno por uno. \
 
 
 
-\- Es ideal cuando conoces la \*\*cantidad de iteraciones\*\* o depende del tamaño de la colección. \[file:4]
+\- Es ideal cuando conoces la \*\*cantidad de iteraciones\*\* o depende del tamaño de la colección. \
 
 
 
@@ -220,7 +220,7 @@ for elemento in coleccion:
 
 
 
-Ejemplo con lista: \[file:4]
+Ejemplo con lista: \
 
 
 
@@ -246,7 +246,7 @@ for n in numeros:
 
 \- Es más legible.
 
-\- Evita muchos bucles infinitos. \[file:4]
+\- Evita muchos bucles infinitos. \
 
 
 
@@ -256,7 +256,7 @@ for n in numeros:
 
 
 
-Permite crear una secuencia de enteros y recorrerlos con `for`. \[file:4]
+Permite crear una secuencia de enteros y recorrerlos con `for`. \
 
 
 
@@ -296,7 +296,7 @@ Usos:
 
 \- Repetir una acción un número exacto de veces.
 
-\- Trabajar por \*\*índice\*\* en listas. \[file:4]
+\- Trabajar por \*\*índice\*\* en listas. \
 
 
 
@@ -326,7 +326,7 @@ Interpretación:
 
 \- En cada vuelta, `fruta` toma un valor de la lista.
 
-\- Se usa para aplicar la misma operación a cada elemento. \[file:4]
+\- Se usa para aplicar la misma operación a cada elemento. \
 
 
 
@@ -346,7 +346,7 @@ frutas\_mayus = \[f.upper() for f in frutas]
 
 
 
-Sintaxis general: \[file:4]
+Sintaxis general: \
 
 
 
@@ -362,7 +362,7 @@ Ideas:
 
 \- Menos código que un `for` clásico.
 
-\- Muy útil para \*\*transformar\*\* datos. \[file:4]
+\- Muy útil para \*\*transformar\*\* datos. \
 
 
 
@@ -372,7 +372,7 @@ Ideas:
 
 
 
-Los diccionarios guardan \*\*pares clave–valor\*\*. \[file:4]
+Los diccionarios guardan \*\*pares clave–valor\*\*. \
 
 
 
@@ -404,7 +404,7 @@ for nombre, edad in edades.items():
 
 \- `keys()`: solo claves.
 
-\- `values()`: solo valores. \[file:4]
+\- `values()`: solo valores. \
 
 
 
@@ -430,13 +430,13 @@ for edad in edades.values():
 
 
 
-Modificar el diccionario \*\*mientras lo recorres\*\* puede dar errores. \[file:4]
+Modificar el diccionario \*\*mientras lo recorres\*\* puede dar errores. \
 
 
 
 Patrón más seguro:
 
-\- Crear un \*\*nuevo diccionario\*\* con comprensión de diccionario. \[file:4]
+\- Crear un \*\*nuevo diccionario\*\* con comprensión de diccionario. \
 
 
 
@@ -458,9 +458,9 @@ edades\_mayores = {nombre: edad for nombre, edad in edades.items() if edad >= 25
 
 
 
-\- `break`: rompe el bucle completamente. \[file:4]
+\- `break`: rompe el bucle completamente. \
 
-\- `continue`: salta al \*\*siguiente ciclo\*\*, sin ejecutar el resto del bloque. \[file:4]
+\- `continue`: salta al \*\*siguiente ciclo\*\*, sin ejecutar el resto del bloque. \
 
 
 
@@ -506,7 +506,7 @@ for n in range(5):
 
 
 
-Un bucle dentro de otro. \[file:4]
+Un bucle dentro de otro. \
 
 
 
@@ -524,7 +524,7 @@ for i in range(3):
 
 \- Útiles para trabajar con estructuras 2D.
 
-\- Cuidado con el rendimiento: crece muy rápido el número de iteraciones. \[file:4]
+\- Cuidado con el rendimiento: crece muy rápido el número de iteraciones. \
 
 
 
@@ -534,7 +534,7 @@ for i in range(3):
 
 
 
-\- `enumerate(iterable)`: da \*\*índice\*\* y valor. \[file:4]
+\- `enumerate(iterable)`: da \*\*índice\*\* y valor. \
 
 
 
@@ -550,7 +550,7 @@ for indice, fruta in enumerate(frutas):
 
 
 
-\- `zip(lista1, lista2, ...)`: recorre varias colecciones al mismo tiempo. \[file:4]
+\- `zip(lista1, lista2, ...)`: recorre varias colecciones al mismo tiempo. \
 
 
 
@@ -580,9 +580,9 @@ for nombre, nota in zip(nombres, notas):
 
 
 
-\- Un \*\*iterador\*\* es un objeto que sabe devolver elementos uno a uno. \[file:4]
+\- Un \*\*iterador\*\* es un objeto que sabe devolver elementos uno a uno. \
 
-\- Un \*\*generador\*\* es una función especial que usa `yield` y produce valores bajo demanda, sin guardar toda la secuencia en memoria. \[file:4]
+\- Un \*\*generador\*\* es una función especial que usa `yield` y produce valores bajo demanda, sin guardar toda la secuencia en memoria. \
 
 
 
@@ -618,7 +618,7 @@ for numero in generador\_pares(10):
 
 
 
-No solo existen listas, también comprensiones de diccionarios y conjuntos. \[file:4]
+No solo existen listas, también comprensiones de diccionarios y conjuntos. \
 
 
 
@@ -646,7 +646,7 @@ aprobados = {n: nota for n, nota in zip(nombres, notas) if nota >= 6}
 
 
 
-Buenas prácticas: \[file:4]
+Buenas prácticas: \
 
 
 
@@ -656,7 +656,7 @@ Buenas prácticas: \[file:4]
 
 \- Evitar bucles anidados innecesarios.
 
-\- Preferir comprensiones cuando mejoran legibilidad. \[file:4]
+\- Preferir comprensiones cuando mejoran legibilidad. \
 
 
 
@@ -666,7 +666,7 @@ Buenas prácticas: \[file:4]
 
 
 
-Técnicas útiles: \[file:4]
+Técnicas útiles: \
 
 
 
@@ -674,7 +674,7 @@ Técnicas útiles: \[file:4]
 
 \- Limitar el número de repeticiones durante las pruebas.
 
-\- Revisar cuidadosamente la \*\*condición de salida\*\* (sobre todo en `while`). \[file:4]
+\- Revisar cuidadosamente la \*\*condición de salida\*\* (sobre todo en `while`). \
 
 
 
@@ -684,7 +684,7 @@ Técnicas útiles: \[file:4]
 
 
 
-Patrones que aparecen todo el tiempo: \[file:4]
+Patrones que aparecen todo el tiempo: \
 
 
 
@@ -716,7 +716,7 @@ mayores = \[n for n in numeros if n > 10]
 
 
 
-\- \*\*Búsqueda\*\*: encontrar un elemento que cumpla cierta condición (a menudo con `break`). \[file:4]
+\- \*\*Búsqueda\*\*: encontrar un elemento que cumpla cierta condición (a menudo con `break`). \
 
 
 
@@ -730,7 +730,7 @@ mayores = \[n for n in numeros if n > 10]
 
 
 
-Un almacén necesita revisar su inventario, detectar productos con \*\*stock bajo\*\* y generar una lista para reposición. \[file:4]
+Un almacén necesita revisar su inventario, detectar productos con \*\*stock bajo\*\* y generar una lista para reposición. \
 
 
 
@@ -746,7 +746,7 @@ Un almacén necesita revisar su inventario, detectar productos con \*\*stock baj
 
 4\. Calcular total de productos en bajo stock y valor total.
 
-5\. Usar un `while` para simular ingreso de productos hasta que el usuario escriba `"salir"`. \[file:4]
+5\. Usar un `while` para simular ingreso de productos hasta que el usuario escriba `"salir"`. \
 
 
 
@@ -758,7 +758,7 @@ Un almacén necesita revisar su inventario, detectar productos con \*\*stock baj
 
 \- Combina `for`, `while`, comprensiones, acumulación y validación de entrada.
 
-\- Es un ejemplo típico de uso real de bucles en un sistema sencillo. \[file:4]
+\- Es un ejemplo típico de uso real de bucles en un sistema sencillo. \
 
 
 
@@ -772,7 +772,7 @@ Un almacén necesita revisar su inventario, detectar productos con \*\*stock baj
 
 
 
-Una escuela quiere procesar datos de estudiantes: nombres, notas, aprobados, reprobados, promedios, etc. \[file:4]
+Una escuela quiere procesar datos de estudiantes: nombres, notas, aprobados, reprobados, promedios, etc. \
 
 
 
@@ -796,7 +796,7 @@ Una escuela quiere procesar datos de estudiantes: nombres, notas, aprobados, rep
 
 &#x20;  - promedio de notas
 
-&#x20;  - nombres en mayúsculas de estudiantes que deben rendir (nota < 6). \[file:4]
+&#x20;  - nombres en mayúsculas de estudiantes que deben rendir (nota < 6). \
 
 
 
@@ -806,9 +806,9 @@ Una escuela quiere procesar datos de estudiantes: nombres, notas, aprobados, rep
 
 
 
-\- `for`, `range`, `zip`, `enumerate`, `break`, comprensiones de listas. \[file:4]
+\- `for`, `range`, `zip`, `enumerate`, `break`, comprensiones de listas. \
 
-\- Patrón ideal para practicar lógica de negocio con bucles. \[file:4]
+\- Patrón ideal para practicar lógica de negocio con bucles. \
 
 
 
@@ -818,11 +818,11 @@ Una escuela quiere procesar datos de estudiantes: nombres, notas, aprobados, rep
 
 
 
-\- `while` es ideal cuando la \*\*repetición depende de una condición\*\* que puede cambiar (usuario, sensores, estados). \[file:4]
+\- `while` es ideal cuando la \*\*repetición depende de una condición\*\* que puede cambiar (usuario, sensores, estados). \
 
-\- `for` es mejor cuando recorres \*\*colecciones o rangos controlados\*\*. \[file:4]
+\- `for` es mejor cuando recorres \*\*colecciones o rangos controlados\*\*. \
 
-\- Herramientas como `range`, comprensiones, `enumerate`, `zip`, `break`, `continue` permiten escribir bucles más claros, cortos y eficientes. \[file:4]
+\- Herramientas como `range`, comprensiones, `enumerate`, `zip`, `break`, `continue` permiten escribir bucles más claros, cortos y eficientes. \
 
-\- Dominar estos patrones es fundamental para resolver problemas reales y escribir código limpio y mantenible en Python. \[file:4]
+\- Dominar estos patrones es fundamental para resolver problemas reales y escribir código limpio y mantenible en Python. \
 
