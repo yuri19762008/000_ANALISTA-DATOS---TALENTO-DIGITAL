@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="slides-format" content="viewport" />
+  <title>Introducción a Machine Learning Escalable</title>
+  <style>
+    :root{--bg:#0f172a;--card:#111827;--text:#e5e7eb;--muted:#94a3b8;--a:#38bdf8;--b:#10b981}
+    *{box-sizing:border-box} html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;overflow:hidden}
+    .deck{position:relative;width:100vw;height:100vh}.slide{position:absolute;inset:0;padding:56px;display:none}.slide.active{display:block}
+    h1,h2{margin:0 0 20px 0} h1{font-size:44px} h2{font-size:32px;color:var(--a)}
+    ul{font-size:24px;line-height:1.45}.small{font-size:20px;color:var(--muted)} .box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px;margin-top:16px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:10px}.nav button{padding:10px 16px;border:none;border-radius:999px;background:var(--a);color:#001018;font-weight:700}
+  </style>
+</head>
+<body>
+<div class="deck">
+  <section class="slide active"><h1>Introducción a Machine Learning Escalable</h1><div class="box"><ul><li>Spark MLlib para Big Data</li><li>Procesamiento distribuido y escalable</li><li>Enfoque de estudio resumido</li></ul></div></section>
+  <section class="slide"><h2>Índice</h2><ul><li>Qué es MLlib</li><li>Estructuras de datos</li><li>Algoritmos soportados</li><li>Flujo de trabajo y evaluación</li></ul></section>
+  <section class="slide"><h2>¿Por qué ML escalable?</h2><ul><li>Los datos masivos superan la capacidad de una sola máquina</li><li>Se necesita paralelismo y distribución</li><li>MLlib aprovecha clústeres de Spark</li><li>Permite trabajar con millones de registros</li></ul></section>
+  <section class="slide"><h2>Qué es MLlib</h2><ul><li>Biblioteca de machine learning de Apache Spark</li><li>Integra clasificación, regresión y clustering</li><li>Se conecta con Spark SQL y otros módulos</li><li>Está diseñada para escala real</li></ul></section>
+  <section class="slide"><h2>Estructuras de datos</h2><ul><li>DataFrame como estructura principal</li><li>DenseVector para features densas</li><li>SparseVector para ahorrar memoria</li><li>Matrix y Pipeline para flujos avanzados</li></ul></section>
+  <section class="slide"><h2>Supervisado</h2><ul><li>Usa datos etiquetados</li><li>Ejemplos: Logistic Regression y Linear Regression</li><li>También árboles y ensambles</li><li>Objetivo: predecir clases o valores</li></ul></section>
+  <section class="slide"><h2>No supervisado</h2><ul><li>No requiere etiquetas</li><li>K-Means agrupa por similitud</li><li>GMM modela clústeres probabilísticos</li><li>PCA reduce dimensión y ruido</li></ul></section>
+  <section class="slide"><h2>Flujo con MLlib</h2><ul><li>Preparar datos y construir features</li><li>Dividir train/test</li><li>Entrenar y predecir</li><li>Evaluar con métricas adecuadas</li></ul></section>
+  <section class="slide"><h2>Pipelines y evaluación</h2><ul><li>Pipeline automatiza etapas</li><li>Métricas: AUC, F1, RMSE, MAE</li><li>Clustering: Silhouette Score</li><li>Validación cruzada y Grid Search mejoran resultados</li></ul></section>
+  <section class="slide"><h2>Cierre</h2><ul><li>MLlib une machine learning y Big Data</li><li>Escala mejor que enfoques locales</li><li>DataFrames, vectores y pipelines son claves</li><li>Base sólida para proyectos de datos masivos</li></ul></section>
+</div>
+<div class="nav"><button onclick="chg(-1)">◀</button><button onclick="chg(1)">▶</button></div>
+<script>let i=0,s=[...document.querySelectorAll('.slide')];function show(n){s[i].classList.remove('active');i=(n+s.length)%s.length;s[i].classList.add('active')}function chg(d){show(i+d)}document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')chg(1);if(e.key==='ArrowLeft')chg(-1)});</script>
+</body>
+</html>
